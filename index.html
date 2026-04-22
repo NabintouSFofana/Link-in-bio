@@ -509,6 +509,116 @@
     padding: 5px 9px;
   }
 }
+    /* ===== PRODUCT CARD (AMAZON / PRODUCT STYLE) ===== */
+.product-link {
+  text-decoration: none;
+  display: block;
+  margin-bottom: 14px;
+  color: inherit;
+}
+
+.product-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 18px 20px;
+  border-radius: var(--radius);
+
+  background: linear-gradient(135deg, var(--glass) 0%, rgba(255,255,255,.46) 50%, var(--glass2) 100%);
+  border: 1px solid rgba(255,255,255,.74);
+  backdrop-filter: blur(18px) saturate(200%);
+  -webkit-backdrop-filter: blur(18px) saturate(200%);
+  box-shadow: var(--shadow2);
+
+  transition: transform .18s ease, box-shadow .18s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hover like your other cards */
+.product-link:hover .product-card {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+}
+
+/* LIGHT SHIMMER (same vibe as .card) */
+.product-card:after {
+  content:"";
+  position:absolute;
+  inset:-30%;
+  background: linear-gradient(120deg,
+    transparent 20%,
+    rgba(255,255,255,.55) 35%,
+    transparent 50%);
+  transform: translateX(-40%) rotate(8deg);
+  opacity:0;
+  pointer-events:none;
+  transition: opacity .2s ease;
+}
+
+.product-link:hover .product-card:after {
+  opacity:.5;
+  animation: shimmer 1.2s ease-in-out;
+}
+
+/* IMAGE BACKGROUND (bigger + premium) */
+.icon-box {
+  background: linear-gradient(135deg, rgba(245,215,166,.9), rgba(255,255,255,.7));
+  padding: 16px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 80px;
+  min-height: 80px;
+
+  box-shadow: 0 10px 18px rgba(19,12,7,.10);
+}
+
+/* BIGGER IMAGE */
+.icon-box img {
+  width: 60px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 14px rgba(19,12,7,.12));
+}
+
+/* TEXT */
+.product-card .text h2 {
+  font-family:"Playfair Display", serif;
+  font-size: 1.2rem;
+  margin: 0;
+  color: var(--ink);
+}
+
+.product-card .text p {
+  margin-top: 6px;
+  font-size: .9rem;
+  color: var(--muted2);
+
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 10px;
+  background: rgba(185,132,74,.12);
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .icon-box {
+    min-width: 65px;
+    min-height: 65px;
+    padding: 12px;
+  }
+
+  .icon-box img {
+    width: 45px;
+  }
+
+  .product-card .text h2 {
+    font-size: 1rem;
+  }
+}
   </style>
 </head>
 
@@ -652,15 +762,18 @@
           </div>
         </a>
 
-        <a class="card" href="https://amzn.to/4vJSpsl" target="_blank" rel="noopener">
-         <div class="icon">
-  <img src="baby_curls_cream.png" width="35" height="35" alt="Baby curls cream product icon">
-</div>
-          <div>
-            <h4>Aunt Jackie's Kids Baby Curls</h4>
-            <p>Buy now</p>
-          </div>
-        </a>
+      <a href="https://your-link.com" class="product-link">
+  <div class="product-card">
+    <div class="icon-box">
+      <img src="baby_curls_cream.png" alt="Baby curls cream">
+    </div>
+
+    <div class="text">
+      <h2>Aunt Jackie’s Kids Baby Curls</h2>
+      <p>Buy now</p>
+    </div>
+  </div>
+</a>
         
         <a class="card" href="https://www.facebook.com/schicgirl" target="_blank" rel="noopener">
           <div class="icon"><img src="icon_facebook_clear.png" alt="" /></div>
