@@ -603,6 +603,51 @@
   background: rgba(185,132,74,.12);
 }
 
+    /* ===== PRINTIFY T-SHIRT SHOP ===== */
+.printify-shop {
+  margin: 22px 0;
+}
+
+.printify-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.printify-item {
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.printify-item img {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: var(--shadow2);
+}
+
+.printify-item h4 {
+  font-family: "Playfair Display", serif;
+  font-size: .95rem;
+  margin: 8px 0 3px;
+}
+
+.printify-price {
+  font-size: .85rem;
+  color: var(--muted2);
+}
+
+@media (max-width: 520px) {
+  .printify-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .printify-item img {
+    height: 300px;
+  }
+}
 /* MOBILE */
 @media (max-width: 600px) {
   .icon-box {
@@ -709,7 +754,11 @@
       </div>
       </div>
       </a>
-        
+
+        <div class="printify-shop">
+  <h3 class="section-title">Schicgirl T-Shirt Collection</h3>
+  <div id="printify-products-en" class="printify-grid"></div>
+</div>
         <a class="card" href="https://www.facebook.com/schicgirl" target="_blank" rel="noopener">
           <div class="icon"><img src="icon_facebook_clear.png" alt="" /></div>
           <div>
@@ -817,7 +866,11 @@
       </div>
       </div>
       </a>
-        
+
+       <div class="printify-shop">
+  <h3 class="section-title">Collection T-Shirts Schicgirl</h3>
+  <div id="printify-products-fr" class="printify-grid"></div>
+</div>
         <a class="card" href="https://www.facebook.com/schicgirl" target="_blank" rel="noopener">
           <div class="icon"><img src="icon_facebook_clear.png" alt="" /></div>
           <div>
@@ -870,18 +923,56 @@
   </div>
 
   <script>
-    (function () {
-      const body = document.body;
-      const buttons = document.querySelectorAll(".switch button");
-      buttons.forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const lang = btn.getAttribute("data-lang");
-          body.setAttribute("data-lang", lang);
-          buttons.forEach((b) => b.classList.remove("active"));
-          btn.classList.add("active");
-        });
+  (function () {
+    const body = document.body;
+    const buttons = document.querySelectorAll(".switch button");
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const lang = btn.getAttribute("data-lang");
+        body.setAttribute("data-lang", lang);
+        buttons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
       });
-    })();
-  </script>
+    });
+  })();
+
+  async function loadPrintifyProducts() {
+    const enContainer = document.getElementById("printify-products-en");
+    const frContainer = document.getElementById("printify-products-fr");
+
+    if (!enContainer || !frContainer) return;
+
+    try {
+      const res = await fetch("/products");
+      const products = await res.json();
+
+      const renderProducts = (container) => {
+        container.innerHTML = "";
+
+        products.forEach((product) => {
+          const item = document.createElement("a");
+          item.className = "printify-item";
+          item.href = "#";
+          item.innerHTML = `
+            <img src="${product.image}" alt="${product.title}">
+            <h4>${product.title}</h4>
+            <div class="printify-price">${product.price}</div>
+          `;
+
+          container.appendChild(item);
+        });
+      };
+
+      renderProducts(enContainer);
+      renderProducts(frContainer);
+    } catch (error) {
+      enContainer.innerHTML = "<p>Products coming soon.</p>";
+      frContainer.innerHTML = "<p>Produits bientôt disponibles.</p>";
+    }
+  }
+
+  loadPrintifyProducts();
+</script>
 </body>
 </html>
