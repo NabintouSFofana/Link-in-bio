@@ -5,15 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Schicgirl — Natural Hair</title>
 
-  <!-- Ownership / metadata -->
+  <!-- Ownership / brand metadata -->
+  <meta name="description" content="Schicgirl helps women with curly, coily and textured hair understand dryness, build simple routines, and choose trusted products." />
   <meta name="author" content="Schicgirl" />
   <meta name="creator" content="Schicgirl" />
   <meta name="publisher" content="Schicgirl" />
   <meta name="copyright" content="© 2026 Schicgirl. All rights reserved." />
-  <meta name="robots" content="index,follow" />
+  <meta name="application-name" content="Schicgirl" />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
   <meta name="theme-color" content="#F5D7A6" />
+  <meta name="color-scheme" content="light dark" />
 
-  <!-- Social preview (update domain + image path) -->
+  <!-- Basic browser security for a static GitHub Pages site -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline'; connect-src 'self'; form-action 'self'; upgrade-insecure-requests" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="format-detection" content="telephone=no" />
+
+  <!-- Social preview / ownership preview -->
   <link rel="canonical" href="https://link.schicgirl.me/" />
   <meta property="og:site_name" content="Schicgirl" />
   <meta property="og:title" content="Schicgirl — Natural Hair Tools" />
@@ -21,13 +29,35 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://link.schicgirl.me/" />
   <meta property="og:image" content="https://link.schicgirl.me/beautiful-woman.jpg" />
+  <meta property="og:image:alt" content="Schicgirl natural hair inspiration" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Schicgirl — Natural Hair Tools" />
+  <meta name="twitter:description" content="Natural hair clarity, routines, and curated picks by Schicgirl." />
+  <meta name="twitter:image" content="https://link.schicgirl.me/beautiful-woman.jpg" />
 
-  <!-- Favicons -->
-  <link rel="icon" href="favicon.ico?v=7" sizes="any" />
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=7" />
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=7" />
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=7" />
+  <!-- Favicons: place these files in the same GitHub folder as index.html -->
+  <link rel="icon" href="favicon.ico?v=8" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=8" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=8" />
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=8" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=8" />
+  <link rel="manifest" href="site.webmanifest" />
+
+  <!-- JSON-LD brand ownership -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Schicgirl",
+    "url": "https://link.schicgirl.me/",
+    "logo": "https://link.schicgirl.me/logo.jpg",
+    "email": "contacte.schicgirl@gmail.com",
+    "sameAs": [
+      "https://www.facebook.com/schicgirl",
+      "https://www.amazon.com/shop/schicgirl"
+    ]
+  }
+  </script>
 
   <!-- Premium fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -692,17 +722,17 @@
       </div>
 
       <div class="gallery" aria-label="Natural hair gallery">
-        <img src="woman_icon_0.png" alt="Woman with curly hair" />
-        <img src="woman_icon_1.png" alt="Woman with braided hair" />
-        <img src="woman_icon_2.png" alt="Woman with afro hair" />
-        <img src="woman_icon_3.png" alt="Woman with long curls" />
+        <img src="woman_icon_0.png" alt="Woman with curly hair" loading="lazy" decoding="async" />
+        <img src="woman_icon_1.png" alt="Woman with braided hair" loading="lazy" decoding="async" />
+        <img src="woman_icon_2.png" alt="Woman with afro hair" loading="lazy" decoding="async" />
+        <img src="woman_icon_3.png" alt="Woman with long curls" loading="lazy" decoding="async" />
       </div>
     </header>
 
     <main>
       <!-- EN -->
       <section class="lang-en" aria-label="English links">
-        <a class="card hero" href="https://decodehair.schicgirl.me/" target="_blank" rel="noopener">
+        <a class="card hero" href="https://decodehair.schicgirl.me/" target="_blank" rel="noopener noreferrer">
           <span class="badge">BEST SELLER</span>
           <div class="icon"><img src="icon_calendar_crop.png" alt="" /></div>
           <div>
@@ -715,21 +745,21 @@
           <strong>Premium mini-tool</strong> — quick clarity, personalized result.
         </div>
 
-        <a class="card" href="https://selar.com/49y1751324" target="_blank" rel="noopener">
+        <a class="card" href="https://selar.com/49y1751324" target="_blank" rel="noopener noreferrer">
           <div class="icon"><img src="icon_book_crop.png" alt="" /></div>
           <div>
             <h4>Your gift: 15 Hair Mistakes to Fix</h4>
             <p>Download your free ebook and start improving your routine today.</p>
           </div>
         </a>
-          <a class="card" href="https://www.amazon.com/shop/schicgirl" target="_blank" rel="noopener">
+          <a class="card" href="https://www.amazon.com/shop/schicgirl" target="_blank" rel="noopener noreferrer sponsored">
           <div class="icon"><img src="icon_amazon_clear.png" alt="" /></div>
           <div>
             <h4>My Amazon Picks</h4>
             <p>Carefully curated affiliate recommendations I actually trust.</p>
           </div>
         </a>
-         <a href="https://amzn.to/491lO7A" class="product-link">
+         <a href="https://amzn.to/491lO7A" class="product-link" target="_blank" rel="noopener noreferrer sponsored">
       <div class="product-card">
       <div class="icon-box">
       <img src="baby_curls_cream.png" alt="Baby curls cream">
@@ -742,7 +772,7 @@
       </div>
       </a>
 
-         <a href="https://amzn.to/3OkUfzm" class="product-link">
+         <a href="https://amzn.to/3OkUfzm" class="product-link" target="_blank" rel="noopener noreferrer sponsored">
       <div class="product-card">
       <div class="icon-box">
       <img src="amazon.png" alt="Aunt Jackie's Curls & Coils Bundle">
@@ -759,7 +789,7 @@
   <h3 class="section-title">Schicgirl T-Shirt Collection</h3>
   <div id="printify-products-en" class="printify-grid"></div>
 </div>
-        <a class="card" href="https://www.facebook.com/schicgirl" target="_blank" rel="noopener">
+        <a class="card" href="https://www.facebook.com/schicgirl" target="_blank" rel="noopener noreferrer">
           <div class="icon"><img src="icon_facebook_clear.png" alt="" /></div>
           <div>
             <h4>Facebook</h4>
@@ -796,7 +826,7 @@
 
       <!-- FR -->
       <section class="lang-fr" aria-label="Liens français">
-        <a class="card hero" href="https://decodehair.schicgirl.me/" target="_blank" rel="noopener">
+        <a class="card hero" href="https://decodehair.schicgirl.me/" target="_blank" rel="noopener noreferrer">
           <span class="badge">TOP VENTE</span>
           <div class="icon"><img src="icon_calendar_crop.png" alt="" /></div>
           <div>
@@ -805,7 +835,7 @@
           </div>
         </a>
         
-         <a class="card hero" href="https://selar.com/70t3ur414k" target="_blank" rel="noopener">
+         <a class="card hero" href="https://selar.com/70t3ur414k" target="_blank" rel="noopener noreferrer">
           <span class="badge">AUTOMATIQUE</span>
           <div class="icon"><img src="icon_book_crop.png" alt="" /></div>
           <div>
@@ -818,7 +848,7 @@
           <strong>Mini-outil premium</strong> — résultat personnalisé, en quelques secondes.
         </div>
 
-        <a class="card" href="https://selar.com/1t7713181a" target="_blank" rel="noopener">
+        <a class="card" href="https://selar.com/1t7713181a" target="_blank" rel="noopener noreferrer">
           <div class="icon"><img src="icon_book_crop.png" alt="" /></div>
           <div>
             <h4>Ton cadeau : 15 erreurs capillaires à corriger</h4>
@@ -826,7 +856,7 @@
           </div>
         </a>
         
-        <a class="card" href="https://selar.com/hydratation-cheveux-crepus" target="_blank" rel="noopener">
+        <a class="card" href="https://selar.com/hydratation-cheveux-crepus" target="_blank" rel="noopener noreferrer">
           <div class="icon"><img src="icon_book_crop.png" alt="" /></div>
           <div>
             <h4>L’HYDRATATION pour des cheveux doux, sains et longs</h4>
@@ -834,7 +864,7 @@
           </div>
         </a>
 
-         <a class="card" href="https://schicgirl-hair.github.io/schicchat/" target="_blank" rel="noopener">
+         <a class="card" href="https://schicgirl-hair.github.io/schicchat/" target="_blank" rel="noopener noreferrer">
           <div class="icon"><img src="icon_book_crop.png" alt="" /></div>
           <div>
             <h4>Schicgirl™ Diagnostic</h4>
@@ -842,7 +872,7 @@
           </div>
         </a>
         
-         <a class="card" href="https://www.amazon.com/shop/schicgirl" target="_blank" rel="noopener">
+         <a class="card" href="https://www.amazon.com/shop/schicgirl" target="_blank" rel="noopener noreferrer sponsored">
           <div class="icon"><img src="icon_amazon_clear.png" alt="" /></div>
           <div>
             <h4>Mes coups de cœur Amazon</h4>
@@ -850,7 +880,7 @@
           </div>
         </a>
 
-         <a href="https://amzn.to/491lO7A" class="product-link">
+         <a href="https://amzn.to/491lO7A" class="product-link" target="_blank" rel="noopener noreferrer sponsored">
       <div class="product-card">
       <div class="icon-box">
       <img src="baby_curls_cream.png" alt="Baby curls cream">
@@ -862,7 +892,7 @@
       </div>
       </a>
 
-        <a href="https://amzn.to/3OkUfzm" class="product-link">
+        <a href="https://amzn.to/3OkUfzm" class="product-link" target="_blank" rel="noopener noreferrer sponsored">
       <div class="product-card">
       <div class="icon-box">
       <img src="amazon.png" alt="Aunt Jackie's Curls & Coils Bundle">
@@ -879,7 +909,7 @@
   <h3 class="section-title">Collection T-Shirts Schicgirl</h3>
   <div id="printify-products-fr" class="printify-grid"></div>
 </div>
-        <a class="card" href="https://www.facebook.com/schicgirl" target="_blank" rel="noopener">
+        <a class="card" href="https://www.facebook.com/schicgirl" target="_blank" rel="noopener noreferrer">
           <div class="icon"><img src="icon_facebook_clear.png" alt="" /></div>
           <div>
             <h4>Facebook</h4>
@@ -918,7 +948,7 @@
       </section>
 
       <div class="banner" aria-label="Bottom banner">
-        <img src="beautiful-woman.jpg" alt="Natural hair inspiration" />
+        <img src="beautiful-woman.jpg" alt="Natural hair inspiration" loading="lazy" decoding="async" />
       </div>
 
       <footer>
@@ -926,6 +956,7 @@
         <div class="lang-fr">En tant qu’associée Amazon, je gagne des revenus grâce aux achats éligibles.</div>
         <div class="lang-en">© 2026 Schicgirl. All rights reserved.</div>
         <div class="lang-fr">© 2026 Schicgirl. Tous droits réservés.</div>
+        <div>Official website: Schicgirl™ | Contact: contacte.schicgirl@gmail.com</div>
       </footer>
     </main>
   </div>
@@ -945,6 +976,25 @@
     });
   })();
 
+  function safeText(value) {
+    return String(value || "").replace(/[&<>'"]/g, (char) => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      "'": "&#39;",
+      "\"": "&quot;"
+    }[char]));
+  }
+
+  function safeUrl(value) {
+    try {
+      const url = new URL(String(value || ""), window.location.origin);
+      return ["http:", "https:"].includes(url.protocol) ? url.href : "#";
+    } catch {
+      return "#";
+    }
+  }
+
   async function loadPrintifyProducts() {
     const enContainer = document.getElementById("printify-products-en");
     const frContainer = document.getElementById("printify-products-fr");
@@ -952,20 +1002,25 @@
     if (!enContainer || !frContainer) return;
 
     try {
-      const res = await fetch("/products");
+      const res = await fetch("/products", { cache: "no-store" });
+      if (!res.ok) throw new Error("Products endpoint unavailable");
+
       const products = await res.json();
+      if (!Array.isArray(products)) throw new Error("Invalid products data");
 
       const renderProducts = (container) => {
         container.innerHTML = "";
 
-        products.forEach((product) => {
+        products.slice(0, 12).forEach((product) => {
           const item = document.createElement("a");
           item.className = "printify-item";
-          item.href = "#";
+          item.href = safeUrl(product.url || product.link || "#");
+          item.target = "_blank";
+          item.rel = "noopener noreferrer";
           item.innerHTML = `
-            <img src="${product.image}" alt="${product.title}">
-            <h4>${product.title}</h4>
-            <div class="printify-price">${product.price}</div>
+            <img src="${safeUrl(product.image)}" alt="${safeText(product.title)}" loading="lazy" decoding="async">
+            <h4>${safeText(product.title)}</h4>
+            <div class="printify-price">${safeText(product.price)}</div>
           `;
 
           container.appendChild(item);

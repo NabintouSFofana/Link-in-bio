@@ -1,0 +1,13 @@
+{
+  "name": "Schicgirl",
+  "short_name": "Schicgirl",
+  "description": "Natural hair tools, routines and curated picks.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fffaf3",
+  "theme_color": "#F5D7A6",
+  "icons": [
+    { "src": "favicon-32.png", "sizes": "32x32", "type": "image/png" },
+    { "src": "apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}
