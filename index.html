@@ -31,7 +31,6 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 html { scroll-behavior: smooth; }
 
 body {
@@ -49,7 +48,6 @@ body {
   user-select: none;
 }
 
-/* ── PROTECTION ── */
 body::after {
   content: '';
   position: fixed; inset: 0;
@@ -94,7 +92,7 @@ body::after {
   padding: 0 18px;
 }
 
-/* ── HERO HEADER ── */
+/* ── HERO ── */
 .hero {
   text-align: center;
   padding: 44px 0 36px;
@@ -138,11 +136,9 @@ body::after {
 }
 .brand-tagline-fr { display: none; }
 
-/* ICONS ROW */
 .icon-row {
   display: flex; justify-content: center; gap: 10px;
-  margin: 18px 0 0;
-  flex-wrap: wrap;
+  margin: 18px 0 0; flex-wrap: wrap;
 }
 .icon-chip {
   width: 44px; height: 44px; border-radius: 50%;
@@ -154,7 +150,6 @@ body::after {
 .icon-chip:hover { transform: translateY(-2px); }
 .icon-chip img { width: 100%; height: 100%; object-fit: cover; }
 
-/* STAT PILLS */
 .stat-row {
   display: flex; justify-content: center; gap: 10px;
   margin: 24px 0 0; flex-wrap: wrap;
@@ -227,16 +222,6 @@ body::after {
 .link-card.featured .link-sub { color: rgba(253,240,215,.65); }
 .link-card.featured .link-arrow { color: var(--gold); }
 
-.link-card.gold-card {
-  background: linear-gradient(135deg, #c9934a, #e8c07e);
-  border-color: rgba(201,147,74,.6);
-  color: #1a0c04;
-}
-.link-card.gold-card .link-title { color: #1a0c04; }
-.link-card.gold-card .link-sub { color: rgba(26,12,4,.65); }
-.link-card.gold-card .link-arrow { color: rgba(26,12,4,.6); }
-.link-card.gold-card:hover { filter: brightness(1.04); }
-
 .link-icon {
   width: 44px; height: 44px; border-radius: 14px;
   flex-shrink: 0; display: flex; align-items: center; justify-content: center;
@@ -247,10 +232,6 @@ body::after {
 .link-card.featured .link-icon {
   background: rgba(201,147,74,.2);
   border-color: rgba(201,147,74,.35);
-}
-.link-card.gold-card .link-icon {
-  background: rgba(26,12,4,.15);
-  border-color: rgba(26,12,4,.15);
 }
 
 .link-body { flex: 1; min-width: 0; }
@@ -276,72 +257,6 @@ body::after {
 .badge-free { background: rgba(232,180,160,.2); color: var(--rose-deep); border: 1px solid rgba(232,180,160,.4); }
 .badge-hot { background: rgba(180,70,50,.1); color: #b44232; border: 1px solid rgba(180,70,50,.2); }
 .link-card.featured .badge-top { background: rgba(201,147,74,.25); color: var(--gold-lt); border-color: rgba(201,147,74,.4); }
-
-/* ── PRODUCT CARD (Featured Ebook) ── */
-.ebook-card {
-  background: linear-gradient(135deg, rgba(45,26,14,.97) 0%, rgba(75,38,18,.95) 100%);
-  border: 1px solid rgba(201,147,74,.45);
-  border-radius: 24px;
-  padding: 28px 24px;
-  margin-bottom: 10px;
-  position: relative; overflow: hidden;
-  box-shadow: 0 24px 60px rgba(30,15,5,.22);
-  cursor: pointer;
-  text-decoration: none; display: block;
-  transition: all .25s;
-}
-.ebook-card::before {
-  content: '';
-  position: absolute; top: -40px; right: -40px;
-  width: 140px; height: 140px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(201,147,74,.25), transparent 70%);
-  pointer-events: none;
-}
-.ebook-card::after {
-  content: '';
-  position: absolute; bottom: -30px; left: -30px;
-  width: 100px; height: 100px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(232,180,160,.15), transparent 70%);
-  pointer-events: none;
-}
-.ebook-card:hover { transform: translateY(-3px); border-color: var(--gold); }
-
-.ebook-eyebrow {
-  font-size: 9.5px; font-weight: 700; letter-spacing: .25em;
-  text-transform: uppercase; color: var(--gold);
-  margin-bottom: 10px; display: block;
-}
-.ebook-title {
-  font-family: var(--serif);
-  font-size: 26px; font-weight: 600; font-style: italic;
-  color: #fdf6ee; line-height: 1.2; margin-bottom: 8px;
-}
-.ebook-sub {
-  font-size: 13px; color: rgba(253,240,215,.65);
-  line-height: 1.55; margin-bottom: 18px;
-  font-weight: 400;
-}
-.ebook-badges {
-  display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;
-}
-.ebook-badge {
-  background: rgba(201,147,74,.18); border: 1px solid rgba(201,147,74,.35);
-  color: var(--gold-lt); border-radius: 100px;
-  padding: 4px 12px; font-size: 11px; font-weight: 600;
-  display: flex; align-items: center; gap: 5px;
-}
-.ebook-cta {
-  display: flex; align-items: center; justify-content: space-between;
-  background: var(--gold);
-  border-radius: 12px; padding: 14px 18px;
-  color: #1a0c04; font-weight: 700; font-size: 15px;
-}
-.ebook-price-old {
-  font-size: 11px; text-decoration: line-through; opacity: .55; margin-right: 6px;
-}
-.ebook-price {
-  font-family: var(--serif); font-size: 22px; font-weight: 600;
-}
 
 /* ── DIAGNOSTIC CARD ── */
 .diag-card {
@@ -437,21 +352,100 @@ body::after {
 .social-label { font-size: 13px; font-weight: 600; }
 .social-sub { font-size: 11px; color: var(--muted); }
 
-/* ── AMAZON GRID ── */
-.amazon-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.amazon-card {
-  background: var(--glass); backdrop-filter: blur(14px);
-  border: 1px solid rgba(255,255,255,.88);
-  border-radius: 16px; padding: 14px;
-  display: flex; flex-direction: column; gap: 8px;
-  text-decoration: none; color: var(--ink);
-  box-shadow: var(--shadow-s); transition: all .2s; cursor: pointer;
+/* ── STAN STORE BLOCK ── */
+.stan-store {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
-.amazon-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
-.amazon-icon { font-size: 24px; }
-.amazon-name { font-size: 13px; font-weight: 600; line-height: 1.35; }
-.amazon-sub { font-size: 11px; color: var(--muted); }
-.amazon-arr { font-size: 14px; color: var(--gold); }
+
+.stan-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--glass);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,.92);
+  border-radius: 18px;
+  padding: 14px 16px;
+  text-decoration: none;
+  color: var(--ink);
+  box-shadow: var(--shadow-s);
+  transition: all .22s cubic-bezier(.4,0,.2,1);
+  position: relative;
+  overflow: hidden;
+}
+.stan-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,248,238,.5), rgba(232,180,160,.08));
+  opacity: 0; transition: opacity .2s;
+  pointer-events: none;
+}
+.stan-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+  border-color: rgba(201,147,74,.3);
+}
+.stan-card:hover::before { opacity: 1; }
+.stan-card:active { transform: scale(.98); }
+
+.stan-img-wrap {
+  width: 64px; height: 64px;
+  border-radius: 14px;
+  flex-shrink: 0;
+  background: var(--gold-pale);
+  border: 1px solid rgba(201,147,74,.2);
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.stan-img-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.stan-img-emoji { font-size: 28px; }
+
+.stan-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.stan-eyebrow {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.stan-name {
+  font-size: 14.5px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--ink);
+}
+.stan-desc {
+  font-size: 11.5px;
+  color: var(--muted);
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+.stan-cta {
+  flex-shrink: 0;
+  background: var(--gold);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  padding: 8px 14px;
+  border-radius: 100px;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(201,147,74,.35);
+  transition: filter .2s;
+}
+.stan-card:hover .stan-cta { filter: brightness(1.08); }
 
 /* ── FOOTER ── */
 .footer {
@@ -460,7 +454,11 @@ body::after {
   line-height: 1.7;
 }
 .footer strong { color: var(--gold); }
-.footer-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(201,147,74,.25), transparent); margin: 14px 0; }
+.footer-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,147,74,.25), transparent);
+  margin: 14px 0;
+}
 
 /* ── LANG VISIBILITY ── */
 body.en .fr-only { display: none !important; }
@@ -470,7 +468,7 @@ body.en .brand-tagline-fr { display: none; }
 body.fr .brand-tagline-en { display: none; }
 body.fr .brand-tagline-fr { display: block; }
 
-/* ── BOTTOM WATERMARK ── */
+/* ── WATERMARK ── */
 .wm-strip {
   position: fixed; bottom: 0; left: 0; right: 0; z-index: 50;
   background: rgba(253,246,238,.92); backdrop-filter: blur(8px);
@@ -478,10 +476,6 @@ body.fr .brand-tagline-fr { display: block; }
   text-align: center; padding: 6px 12px;
   font-size: 10px; font-weight: 600;
   letter-spacing: .1em; color: var(--muted);
-}
-
-@media (max-width: 400px) {
-  .amazon-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -495,13 +489,13 @@ body.fr .brand-tagline-fr { display: block; }
   </div>
 </div>
 
-<!-- WRAP -->
 <div class="wrap">
 
   <!-- HERO -->
   <div class="hero">
     <div class="logo-ring">
-      <img class="logo-img" src="https://link.schicgirl.me/logo2.png" alt="Schicgirl logo" onerror="this.style.display='none';this.parentElement.innerHTML='<div style=\'width:100%;height:100%;border-radius:50%;background:linear-gradient(135deg,#e8b4a0,#c9934a);display:flex;align-items:center;justify-content:center;font-family:Cormorant Garamond,serif;font-size:40px;font-weight:600;color:#fff\'>S</div>'"/>
+      <img class="logo-img" src="https://link.schicgirl.me/logo2.png" alt="Schicgirl logo"
+        onerror="this.style.display='none';this.parentElement.innerHTML='<div style=\'width:100%;height:100%;border-radius:50%;background:linear-gradient(135deg,#e8b4a0,#c9934a);display:flex;align-items:center;justify-content:center;font-family:Cormorant Garamond,serif;font-size:40px;font-weight:600;color:#fff\'>S</div>'"/>
     </div>
     <h1 class="brand-name">Schic<span>girl</span>™</h1>
     <p class="brand-tagline brand-tagline-en">Clarity, care &amp; confidence for natural hair.</p>
@@ -515,93 +509,20 @@ body.fr .brand-tagline-fr { display: block; }
     </div>
 
     <div class="stat-row">
-      <div class="stat-pill"><div class="stat-dot"></div><span class="en-only">10,000+ women helped</span><span class="fr-only">10 000+ femmes aidées</span></div>
-      <div class="stat-pill"><div class="stat-dot"></div><span class="en-only">🇬🇧 🇫🇷 Bilingual</span><span class="fr-only">🇬🇧 🇫🇷 Bilingue</span></div>
+      <div class="stat-pill">
+        <div class="stat-dot"></div>
+        <span class="en-only">10,000+ women helped</span>
+        <span class="fr-only">10 000+ femmes aidées</span>
+      </div>
+      <div class="stat-pill">
+        <div class="stat-dot"></div>
+        <span class="en-only">🇬🇧 🇫🇷 Bilingual</span>
+        <span class="fr-only">🇬🇧 🇫🇷 Bilingue</span>
+      </div>
     </div>
   </div>
 
-  <!-- ── FEATURED EBOOK ── 
-  <div class="section">
-    <div class="section-label en-only">✦ New Release</div>
-    <div class="section-label fr-only">✦ Nouvelle sortie</div>
-
-     EN VERSION 
-    <a href="#" class="ebook-card en-only" onclick="trackClick('ebook-4c-crowned-en')">
-      <span class="ebook-eyebrow">✦ The Complete Hair Bible · English Edition</span>
-      <div class="ebook-title">4C Crowned</div>
-      <p class="ebook-sub">The ultimate growth &amp; retention guide for 4A, 4B &amp; 4C natural hair. 10 chapters, porosity protocol, 90-day challenge &amp; more.</p>
-      <div class="ebook-badges">
-        <div class="ebook-badge">📖 10 Chapters</div>
-        <div class="ebook-badge">💧 Porosity Guide</div>
-        <div class="ebook-badge">🗓️ 90-Day Challenge</div>
-      </div>
-      <div class="ebook-cta">
-        <span>Get the Ebook →</span>
-        <div>
-          <span class="ebook-price-old">$97</span>
-          <span class="ebook-price">$27</span>
-        </div>
-      </div>
-    </a>
-    -->
-
-    <!-- FR VERSION 
-    <a href="#" class="ebook-card fr-only" onclick="trackClick('ebook-4c-couronnee-fr')">
-      <span class="ebook-eyebrow">✦ La Bible Complète des Cheveux · Édition Française</span>
-      <div class="ebook-title">4C Couronnée</div>
-      <p class="ebook-sub">Le guide ultime de la croissance &amp; rétention pour cheveux naturels 4A, 4B &amp; 4C. 10 chapitres, protocole porosité, défi 90 jours &amp; plus.</p>
-      <div class="ebook-badges">
-        <div class="ebook-badge">📖 10 Chapitres</div>
-        <div class="ebook-badge">💧 Guide Porosité</div>
-        <div class="ebook-badge">🗓️ Défi 90 Jours</div>
-      </div>
-      <div class="ebook-cta">
-        <span>Obtenir l'Ebook →</span>
-        <div>
-          <span class="ebook-price-old">97€</span>
-          <span class="ebook-price">27€</span>
-        </div>
-      </div>
-    </a>
-  </div>
--->
-  <!-- ── DIAGNOSTIC ── -->
-  <div class="section">
-    <!--
-    <div class="section-label en-only">✦ Free Tools</div>
-    <div class="section-label fr-only">✦ Outils Gratuits</div>
-    -->
-    
-    <!-- Decode Hair 
-    <a href="https://decodehair.schicgirl.me/" class="link-card featured" onclick="trackClick('decode-hair')">
-      <div class="link-icon">🔍</div>
-      <div class="link-body">
-        <div class="link-title"><span class="en-only">Why is my hair still dry?</span><span class="fr-only">Pourquoi mes cheveux restent secs ?</span></div>
-        <div class="link-sub"><span class="en-only">Diagnose your dryness in 60 seconds.</span><span class="fr-only">Diagnostique ta sécheresse en 60 secondes.</span></div>
-      </div>
-      <div class="link-right">
-        <span class="badge-pill badge-top">TOP</span>
-        <span class="link-arrow">→</span>
-      </div>
-    </a>
-    -->
-    
-
-    <!-- Porosity Quiz 
-    <a href="#" class="link-card" onclick="trackClick('porosity-quiz')">
-      <div class="link-icon">🧪</div>
-      <div class="link-body">
-        <div class="link-title"><span class="en-only">Hair Porosity Quiz</span><span class="fr-only">Quiz Porosité Capillaire</span></div>
-        <div class="link-sub"><span class="en-only">7 questions → your personalized hair blueprint.</span><span class="fr-only">7 questions → ton plan capillaire personnalisé.</span></div>
-      </div>
-      <div class="link-right">
-        <span class="badge-pill badge-free">FREE</span>
-        <span class="link-arrow">→</span>
-      </div>
-    </a>
-  </div>
--->
-  <!-- ── GIFTS / FREE EBOOKS ── -->
+  <!-- ── WELCOME GIFT ── -->
   <div class="section">
     <div class="section-label en-only">✦ Your Welcome Gift</div>
     <div class="section-label fr-only">✦ Ton Cadeau de Bienvenue</div>
@@ -625,11 +546,12 @@ body.fr .brand-tagline-fr { display: block; }
     </a>
   </div>
 
-  <!--── PAID RESOURCES ── -->
+  <!-- ── PREMIUM RESOURCES ── -->
   <div class="section">
     <div class="section-label en-only">✦ Premium Resources</div>
-  <div class="section-label fr-only">✦ Ressources Premium</div>
-  <!-- Diagnostic Chat -->
+    <div class="section-label fr-only">✦ Ressources Premium</div>
+
+    <!-- Diagnostic Chat -->
     <a href="https://schicgirl-hair.github.io/schicchat/" class="diag-card" onclick="trackClick('schicchat')">
       <div class="diag-inner">
         <div class="diag-icon-wrap">💬</div>
@@ -637,28 +559,19 @@ body.fr .brand-tagline-fr { display: block; }
           <div class="diag-label en-only">Diagnostic · Free</div>
           <div class="diag-label fr-only">Diagnostique Auto · Gratuit</div>
           <div class="diag-title">Schicgirl™ <span class="en-only">Diagnostic Chat</span><span class="fr-only">Diagnostique</span></div>
-          <div class="diag-sub"><span class="en-only">Talk to me about your hair — instant expert answers.</span><span class="fr-only">Parle-moi de tes cheveux — réponses expertes instantanées.</span></div>
+          <div class="diag-sub">
+            <span class="en-only">Talk to me about your hair — instant expert answers.</span>
+            <span class="fr-only">Parle-moi de tes cheveux — réponses expertes instantanées.</span>
+          </div>
         </div>
       </div>
     </a>
-<!--
-   <a href="https://selar.com/hydratation-cheveux-crepus" class="link-card fr-only" onclick="trackClick('hydration-ebook')">
-      <div class="link-icon">💧</div>
-      <div class="link-body">
-        <div class="link-title">L'Hydratation — Ebook</div>
-        <div class="link-sub">Comprends l'hydratation de tes cheveux crépus une fois pour toutes.</div>
-      </div>
-      <div class="link-right">
-        <span class="badge-pill badge-hot">HOT</span>
-        <span class="link-arrow">→</span>
-      </div>
-    </a>
-  -->
+
     <a href="https://schicgirl-hair.github.io/hydratation/" class="link-card fr-only" onclick="trackClick('premium-fr')">
       <div class="link-icon">💧</div>
       <div class="link-body">
         <div class="link-title">Pourquoi tes cheveux restent secs ?</div>
-        <div class="link-sub">Je vais t’aider à comprendre pourquoi tes cheveux crépus restent secs.</div>
+        <div class="link-sub">Je vais t'aider à comprendre pourquoi tes cheveux crépus restent secs.</div>
       </div>
       <div class="link-right">
         <span class="badge-pill badge-top">AUTO</span>
@@ -678,45 +591,60 @@ body.fr .brand-tagline-fr { display: block; }
     </a>
   </div>
 
-  <!-- ── AMAZON PICKS ── -->
+  <!-- ── AMAZON PICKS — STAN STORE STYLE ── -->
   <div class="section">
     <div class="section-label en-only">✦ My Curated Picks</div>
     <div class="section-label fr-only">✦ Mes Sélections</div>
 
-    <div class="amazon-grid">
-      <a href="https://www.amazon.com/shop/schicgirl" class="amazon-card link-card" onclick="trackClick('amazon-shop')">
-        <div class="amazon-icon">🛍️</div>
-        <div class="amazon-name"><span class="en-only">Amazon Picks</span><span class="fr-only">Coups de Cœur Amazon</span></div>
-        <div class="amazon-sub"><span class="en-only">All my trusted recommendations.</span><span class="fr-only">Toutes mes recommandations.</span>
-        </div>
-        <div class="link-right">
-        <span class="link-arrow">→</span>
-      </div>
+    <div class="stan-store">
 
-        <!--<div class="amazon-arr">→</div>-->
-      </a>
-      <a href="https://amzn.to/491lO7A" class="amazon-card link-card" onclick="trackClick('auntjackies-baby')">
-        <!--<div class="amazon-icon">🧴</div>-->
-        <img src="baby_curls_cream.png" width="30px" alt="">
-        <div class="amazon-name">Aunt Jackie's Baby Curls</div>
-        <div class="amazon-sub">Kids curl care
+      <!-- Shop All -->
+      <a href="https://www.amazon.com/shop/schicgirl" class="stan-card" onclick="trackClick('amazon-shop')">
+        <div class="stan-img-wrap stan-img-emoji">🛍️</div>
+        <div class="stan-body">
+          <div class="stan-eyebrow en-only">Amazon Storefront</div>
+          <div class="stan-eyebrow fr-only">Boutique Amazon</div>
+          <div class="stan-name en-only">All My Picks</div>
+          <div class="stan-name fr-only">Tous mes coups de cœur</div>
+          <div class="stan-desc en-only">Browse every product I trust for natural hair.</div>
+          <div class="stan-desc fr-only">Toutes mes recommandations capillaires.</div>
         </div>
-         <div class="link-right">
-        <span class="link-arrow">→</span>
-      </div>
-       <!-- <div class="amazon-arr">→</div>-->
+        <div class="stan-cta en-only">Shop →</div>
+        <div class="stan-cta fr-only">Voir →</div>
       </a>
-      <a href="https://amzn.to/3OkUfzm" class="amazon-card link-card" onclick="trackClick('auntjackies-bundle')">
-        <!--<div class="amazon-icon"></a></div>-->
-         <img src="amazon.png" width="50px" alt="">
-        <div class="amazon-name">Aunt Jackie's Bundle</div>
-        <div class="amazon-sub">Curls &amp; Coils Bundle
+
+      <!-- Aunt Jackie's Baby Curls -->
+      <a href="https://amzn.to/491lO7A" class="stan-card" onclick="trackClick('auntjackies-baby')">
+        <div class="stan-img-wrap">
+          <img src="baby_curls_cream.png" alt="Aunt Jackie's Baby Curls"/>
         </div>
-         <div class="link-right">
-        <span class="link-arrow">→</span>
-      </div>
-        <!--<div class="amazon-arr">→</div>-->
+        <div class="stan-body">
+          <div class="stan-eyebrow en-only">Kids · Curl Care</div>
+          <div class="stan-eyebrow fr-only">Enfants · Boucles</div>
+          <div class="stan-name">Aunt Jackie's Baby Curls</div>
+          <div class="stan-desc en-only">Gentle curl-defining cream for little ones.</div>
+          <div class="stan-desc fr-only">Crème douce pour définir les boucles des enfants.</div>
+        </div>
+        <div class="stan-cta en-only">Get it →</div>
+        <div class="stan-cta fr-only">Voir →</div>
       </a>
+
+      <!-- Aunt Jackie's Bundle -->
+      <a href="https://amzn.to/3OkUfzm" class="stan-card" onclick="trackClick('auntjackies-bundle')">
+        <div class="stan-img-wrap">
+          <img src="amazon.png" alt="Aunt Jackie's Bundle"/>
+        </div>
+        <div class="stan-body">
+          <div class="stan-eyebrow en-only">Curls &amp; Coils</div>
+          <div class="stan-eyebrow fr-only">Boucles &amp; Coils</div>
+          <div class="stan-name">Aunt Jackie's Bundle</div>
+          <div class="stan-desc en-only">The full curl &amp; coil care system in one set.</div>
+          <div class="stan-desc fr-only">Le système complet soin boucles &amp; coils.</div>
+        </div>
+        <div class="stan-cta en-only">Get it →</div>
+        <div class="stan-cta fr-only">Voir →</div>
+      </a>
+
     </div>
   </div>
 
@@ -763,14 +691,23 @@ body.fr .brand-tagline-fr { display: block; }
         <span class="social-icon">📘</span>
         <div>
           <div class="social-label">Facebook</div>
-          <div class="social-sub"><span class="en-only">Daily tips &amp; real talk</span><span class="fr-only">Conseils &amp; coulisses</span></div>
+          <div class="social-sub">
+            <span class="en-only">Daily tips &amp; real talk</span>
+            <span class="fr-only">Conseils &amp; coulisses</span>
+          </div>
         </div>
       </a>
       <a href="mailto:contacte.schicgirl@gmail.com" class="social-btn" onclick="trackClick('email')">
         <span class="social-icon">✉️</span>
         <div>
-          <div class="social-label"><span class="en-only">Email Me</span><span class="fr-only">M'Écrire</span></div>
-          <div class="social-sub"><span class="en-only">Collabs &amp; support</span><span class="fr-only">Collabs &amp; support</span></div>
+          <div class="social-label">
+            <span class="en-only">Email Me</span>
+            <span class="fr-only">M'Écrire</span>
+          </div>
+          <div class="social-sub">
+            <span class="en-only">Collabs &amp; support</span>
+            <span class="fr-only">Collabs &amp; support</span>
+          </div>
         </div>
       </a>
     </div>
@@ -779,7 +716,8 @@ body.fr .brand-tagline-fr { display: block; }
   <!-- FOOTER -->
   <div class="footer">
     <div class="footer-divider"></div>
-    <img src="https://link.schicgirl.me/logo2.png" alt="Schicgirl" style="width:36px;height:36px;border-radius:50%;object-fit:cover;margin:0 auto 10px;display:block;opacity:.7;"/>
+    <img src="https://link.schicgirl.me/logo2.png" alt="Schicgirl"
+      style="width:36px;height:36px;border-radius:50%;object-fit:cover;margin:0 auto 10px;display:block;opacity:.7;"/>
     <strong>Schicgirl™</strong><br/>
     <span class="en-only">As an Amazon Associate I earn from qualifying purchases.<br/>contacte.schicgirl@gmail.com</span>
     <span class="fr-only">En tant qu'associée Amazon, je gagne des revenus grâce aux achats éligibles.<br/>contacte.schicgirl@gmail.com</span>
@@ -787,7 +725,6 @@ body.fr .brand-tagline-fr { display: block; }
 
 </div><!-- /wrap -->
 
-<!-- WATERMARK STRIP -->
 <div class="wm-strip">Schicgirl™ · link.schicgirl.me · © 2026</div>
 
 <script>
@@ -800,7 +737,6 @@ function setLang(lang) {
   localStorage.setItem('sg_lang', lang);
 }
 
-// Restore saved lang
 const savedLang = localStorage.getItem('sg_lang');
 if (savedLang) setLang(savedLang);
 
@@ -821,7 +757,6 @@ function trackClick(value) {
   saveData(d);
 }
 
-// Track visit
 (function() {
   const d = getData();
   d.visits.unshift({
