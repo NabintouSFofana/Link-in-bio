@@ -1,1956 +1,799 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-    />
-    <title>HydraCheck | Hair Hydration Diagnostic | Schicgirl</title>
-    <meta
-      name="description"
-      content="Test your hair hydration level and find out why your curly hair stays dry despite care. / Teste ton niveau d'hydratation capillaire."
-    />
-    <meta name="author" content="Schicgirl" />
-    <meta name="copyright" content="© 2026 Schicgirl. All rights reserved." />
-    <meta property="og:title" content="HydraCheck par Schicgirl" />
-    <meta
-      property="og:description"
-      content="Free hydration diagnostic for curly hair. / Diagnostic gratuit pour cheveux crépus."
-    />
-    <meta property="og:type" content="website" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      *,
-      *::before,
-      *::after {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-      :root {
-        --cream: #fdf6ee;
-        --warm: #f5e9d8;
-        --blush: #f2d5cf;
-        --rose: #e4b4af;
-        --brown: #3e261c;
-        --brown-md: #6b3e2e;
-        --gold: #b07b38;
-        --gold-lt: #d4a55e;
-        --muted: #9a7060;
-        --white: #fff;
-        --danger: #8a3a33;
-        --success: #3a6b4c;
-        --shadow-s: 0 4px 24px rgba(62, 38, 28, 0.08);
-        --shadow-l: 0 24px 80px rgba(62, 38, 28, 0.18);
-        --radius: 20px;
-        --radius-lg: 28px;
-        --serif: "Cormorant Garamond", Georgia, serif;
-        --sans: "DM Sans", system-ui, sans-serif;
-      }
-      html {
-        height: 100%;
-        -webkit-text-size-adjust: 100%;
-      }
-      body {
-        min-height: 100%;
-        font-family: var(--sans);
-        color: var(--brown);
-        background:
-          radial-gradient(
-            ellipse 70% 55% at 8% 0%,
-            #f2ccc7 0%,
-            transparent 55%
-          ),
-          radial-gradient(
-            ellipse 60% 50% at 92% 100%,
-            #edd9b0 0%,
-            transparent 50%
-          ),
-          linear-gradient(160deg, #fdf6ee, #f7ede0);
-        background-attachment: fixed;
-      }
-      .app {
-        width: min(1040px, 96vw);
-        min-height: 100dvh;
-        margin: 0 auto;
-        padding: 14px 0 env(safe-area-inset-bottom, 0);
-        display: grid;
-        grid-template-rows: auto 1fr auto;
-        gap: 10px;
-      }
-
-      /* ── Topbar ── */
-      .topbar {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-        background: rgba(255, 255, 255, 0.74);
-        backdrop-filter: blur(16px);
-        border: 1px solid rgba(176, 123, 56, 0.2);
-        border-radius: var(--radius-lg);
-        padding: 12px 16px;
-        box-shadow: var(--shadow-s);
-      }
-      .brand {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        min-width: 0;
-      }
-      .mark {
-        width: 42px;
-        height: 42px;
-        border-radius: 14px;
-        background: linear-gradient(135deg, var(--rose), var(--gold));
-        display: grid;
-        place-items: center;
-        color: #fff;
-        font-family: var(--serif);
-        font-size: 25px;
-        font-weight: 600;
-        box-shadow: 0 8px 20px rgba(176, 123, 56, 0.28);
-        flex: 0 0 auto;
-      }
-      .brand small {
-        display: block;
-        font-size: 10px;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        color: var(--gold);
-        font-weight: 700;
-      }
-      .brand h1 {
-        font-family: var(--serif);
-        font-weight: 400;
-        font-size: clamp(21px, 3vw, 34px);
-        line-height: 1.02;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-
-      /* Language switcher */
-      .lang-sw {
-        display: flex;
-        background: rgba(255, 255, 255, 0.8);
-        border: 1px solid rgba(176, 123, 56, 0.22);
-        border-radius: 999px;
-        padding: 3px;
-        gap: 2px;
-        flex-shrink: 0;
-      }
-      .lang-sw button {
-        border: none;
-        background: transparent;
-        padding: 5px 13px;
-        border-radius: 999px;
-        font-family: var(--sans);
-        font-size: 12px;
-        font-weight: 700;
-        cursor: pointer;
-        color: var(--muted);
-        transition: 0.18s;
-        letter-spacing: 0.05em;
-      }
-      .lang-sw button.active {
-        background: var(--gold);
-        color: white;
-        box-shadow: 0 3px 10px rgba(176, 123, 56, 0.3);
-      }
-
-      /* ── Layout ── */
-      .panel {
-        display: grid;
-        grid-template-columns: 0.92fr 1.08fr;
-        gap: 12px;
-        align-items: start;
-      }
-
-      .hero,
-      .chat-panel {
-        background: rgba(255, 255, 255, 0.82);
-        backdrop-filter: blur(18px);
-        border: 1px solid rgba(176, 123, 56, 0.18);
-        border-radius: var(--radius-lg);
-        box-shadow: var(--shadow-l);
-        overflow: hidden;
-      }
-
-      /* ── Hero sidebar ── */
-      .hero {
-        padding: 26px;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        gap: 24px;
-        position: relative;
-        height: auto;
-      }
-      .hero::after {
-        content: "";
-        position: absolute;
-        right: -80px;
-        bottom: -90px;
-        width: 240px;
-        height: 240px;
-        border-radius: 50%;
-        border: 1px solid rgba(176, 123, 56, 0.18);
-        background: radial-gradient(
-          circle,
-          rgba(228, 180, 175, 0.25),
-          transparent 62%
-        );
-      }
-      .eyebrow {
-        font-size: 10px;
-        font-weight: 800;
-        letter-spacing: 0.22em;
-        text-transform: uppercase;
-        color: var(--gold);
-        margin-bottom: 7px;
-      }
-      .hero h2 {
-        font-family: var(--serif);
-        font-weight: 400;
-        font-size: clamp(34px, 5vw, 58px);
-        line-height: 0.96;
-        margin-bottom: 14px;
-      }
-      .hero p {
-        font-size: 14px;
-        line-height: 1.75;
-        color: var(--muted);
-        max-width: 540px;
-      }
-      .mini-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-        position: relative;
-        z-index: 1;
-      }
-      .mini {
-        background: #fff;
-        border: 1px solid rgba(176, 123, 56, 0.14);
-        border-radius: 18px;
-        padding: 14px;
-        box-shadow: var(--shadow-s);
-      }
-      .mini strong {
-        font-family: var(--serif);
-        font-size: 23px;
-        color: var(--gold);
-        display: block;
-        line-height: 1;
-      }
-      .mini span {
-        font-size: 11.5px;
-        color: var(--muted);
-        line-height: 1.4;
-        display: block;
-        margin-top: 5px;
-      }
-
-      /* ── Chat ── */
-      .chat-panel {
-        display: flex;
-        flex-direction: column;
-        min-height: 620px;
-      }
-      .progress-track {
-        height: 4px;
-        background: rgba(176, 123, 56, 0.1);
-        flex: 0 0 auto;
-      }
-      .progress-fill {
-        height: 100%;
-        width: 0%;
-        background: linear-gradient(90deg, var(--rose), var(--gold));
-        transition: width 0.45s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-      .chatbox {
-        flex: 1 1 auto;
-        min-height: 0;
-        overflow-y: auto;
-        padding: 18px 18px 10px;
-        scroll-behavior: smooth;
-      }
-      .chatbox::-webkit-scrollbar {
-        width: 4px;
-      }
-      .chatbox::-webkit-scrollbar-thumb {
-        background: rgba(176, 123, 56, 0.25);
-        border-radius: 4px;
-      }
-      .msg {
-        max-width: 91%;
-        margin-bottom: 11px;
-        border-radius: 18px;
-        padding: 12px 15px;
-        font-size: 13.5px;
-        line-height: 1.58;
-        white-space: pre-line;
-        animation: fadeUp 0.25s cubic-bezier(0.34, 1.2, 0.64, 1) both;
-      }
-      @keyframes fadeUp {
-        from {
-          opacity: 0;
-          transform: translateY(8px) scale(0.98);
-        }
-        to {
-          opacity: 1;
-          transform: none;
-        }
-      }
-      .bot {
-        background: #fff;
-        border: 1px solid rgba(228, 180, 175, 0.4);
-        border-bottom-left-radius: 5px;
-      }
-      .user {
-        background: var(--brown);
-        color: #fff;
-        margin-left: auto;
-        border-bottom-right-radius: 5px;
-      }
-      .result {
-        max-width: 100%;
-        background: linear-gradient(145deg, #fffaf3, #fff7ee);
-        border: 1px solid rgba(176, 123, 56, 0.28);
-      }
-      .quick {
-        flex: 0 0 auto;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 7px;
-        padding: 9px 14px 7px;
-        background: rgba(255, 255, 255, 0.62);
-        border-top: 1px solid rgba(228, 180, 175, 0.2);
-        max-height: 150px;
-        overflow-y: auto;
-      }
-      .quick:empty {
-        padding: 0;
-        border-top: none;
-        max-height: 0;
-      }
-      button {
-        font-family: var(--sans);
-      }
-      .qbtn {
-        border: 1.5px solid rgba(176, 123, 56, 0.32);
-        background: #fff;
-        color: var(--brown-md);
-        border-radius: 999px;
-        padding: 9px 14px;
-        font-size: 12.5px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.17s;
-      }
-      .qbtn:hover {
-        background: var(--warm);
-        border-color: var(--gold);
-        transform: translateY(-1px);
-      }
-      .form {
-        flex: 0 0 auto;
-        display: flex;
-        gap: 8px;
-        padding: 11px 12px 13px;
-        border-top: 1px solid rgba(228, 180, 175, 0.28);
-        background: rgba(253, 246, 238, 0.95);
-      }
-      .form input {
-        flex: 1;
-        height: 44px;
-        border-radius: 999px;
-        border: 1.5px solid rgba(176, 123, 56, 0.28);
-        padding: 0 18px;
-        font-size: 16px;
-        outline: none;
-        color: var(--brown);
-      }
-      .form input:focus {
-        border-color: var(--gold);
-      }
-      .send {
-        height: 44px;
-        border: 0;
-        border-radius: 999px;
-        background: var(--brown);
-        color: #fff;
-        padding: 0 18px;
-        font-size: 13px;
-        font-weight: 700;
-        cursor: pointer;
-        transition: 0.17s;
-      }
-      .send:hover {
-        background: var(--brown-md);
-      }
-
-      /* Typing indicator */
-      .typing {
-        display: inline-flex;
-        gap: 5px;
-        background: #fff;
-        border: 1px solid rgba(228, 180, 175, 0.4);
-        border-radius: 18px;
-        border-bottom-left-radius: 5px;
-        padding: 12px 15px;
-        margin-bottom: 11px;
-      }
-      .dot {
-        width: 7px;
-        height: 7px;
-        border-radius: 50%;
-        background: var(--rose);
-        animation: bounce 1.2s ease-in-out infinite;
-      }
-      .dot:nth-child(2) {
-        animation-delay: 0.18s;
-      }
-      .dot:nth-child(3) {
-        animation-delay: 0.36s;
-      }
-      @keyframes bounce {
-        0%,
-        60%,
-        100% {
-          transform: translateY(0);
-          opacity: 0.6;
-        }
-        30% {
-          transform: translateY(-6px);
-          opacity: 1;
-        }
-      }
-
-      /* Result card */
-      .r-label {
-        font-size: 9.5px;
-        font-weight: 800;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        color: var(--gold);
-        margin-bottom: 7px;
-      }
-      .divider {
-        height: 1px;
-        background: rgba(176, 123, 56, 0.14);
-        margin: 14px 0;
-      }
-      .score-card {
-        display: flex;
-        align-items: center;
-        gap: 13px;
-        background: rgba(176, 123, 56, 0.09);
-        border-radius: 16px;
-        padding: 12px 16px;
-        margin-bottom: 12px;
-      }
-      .score {
-        font-family: var(--serif);
-        font-size: 48px;
-        font-weight: 600;
-        color: var(--gold);
-        line-height: 1;
-      }
-      .score-text {
-        font-size: 12.5px;
-        color: var(--muted);
-        line-height: 1.45;
-      }
-      .score-text strong {
-        color: var(--brown);
-      }
-      .method-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 9px;
-        margin-top: 8px;
-      }
-      .method {
-        background: #fff;
-        border: 1px solid rgba(176, 123, 56, 0.16);
-        border-radius: 14px;
-        padding: 12px;
-        font-size: 12.5px;
-        line-height: 1.55;
-      }
-      .method b {
-        color: var(--gold);
-      }
-      .offer {
-        background: linear-gradient(145deg, #fffaf3, #fff2e5);
-        border: 1px solid rgba(176, 123, 56, 0.33);
-        border-radius: var(--radius);
-        padding: 18px;
-        margin-top: 12px;
-      }
-      .offer h3 {
-        font-family: var(--serif);
-        font-size: 24px;
-        font-weight: 400;
-        margin-bottom: 8px;
-      }
-      .offer p {
-        font-size: 13px;
-        color: var(--muted);
-        line-height: 1.65;
-        margin-bottom: 9px;
-      }
-      .offer-btns {
-        display: grid;
-        gap: 9px;
-        margin-top: 12px;
-      }
-      .offer a {
-        display: block;
-        text-align: center;
-        text-decoration: none;
-        border-radius: 999px;
-        padding: 13px 16px;
-        font-size: 13px;
-        font-weight: 800;
-      }
-      .btn-dark {
-        background: var(--brown);
-        color: #fff;
-      }
-      .btn-gold {
-        background: linear-gradient(135deg, var(--gold), var(--gold-lt));
-        color: #fff;
-      }
-
-      /* Footer */
-      .footer {
-        text-align: center;
-        font-size: 10.5px;
-        color: var(--muted);
-        padding: 2px 8px 6px;
-        line-height: 1.5;
-      }
-
-      /* Responsive */
-     @media(max-width:900px){
-
-  html,
-  body{
-    height:100%;
-    overflow:hidden;
-  }
-
-  .app{
-    width:100%;
-    height:100dvh;
-
-    padding:4px;
-
-    display:flex;
-    flex-direction:column;
-
-    gap:4px;
-  }
-
-  .panel{
-    flex:1;
-    min-height:0;
-
-    display:flex;
-    flex-direction:column;
-  }
-
-  .hero{
-    display:none;
-  }
-
-  .chat-panel{
-    flex:1;
-
-    min-height:0;
-    height:100%;
-
-    border-radius:18px;
-
-    overflow:hidden;
-  }
-
-  .chatbox{
-    flex:1;
-
-    overflow-y:auto;
-
-    padding:12px 10px 8px;
-  }
-
-  .form{
-    padding:8px;
-  }
-
-  .form input{
-    height:42px;
-  }
-
-  .send{
-    height:42px;
-  }
-
-  .topbar{
-    border-radius:18px;
-  }
-
-  .brand h1{
-    font-size:22px;
-  }
-
-  .method-grid{
-    grid-template-columns:1fr;
-  }
-
-  .msg{
-    max-width:95%;
-    font-size:13px;
-  }
-
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Schicgirl™ — Natural Hair Tools</title>
+<meta name="description" content="Schicgirl helps women with curly, coily and textured hair understand dryness, build simple routines, and choose trusted products."/>
+<meta property="og:title" content="Schicgirl™ — Natural Hair Tools"/>
+<meta property="og:image" content="https://link.schicgirl.me/beautiful-woman.jpg"/>
+<meta name="theme-color" content="#c9934a"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg: #fdf8f2;
+  --ink: #2d1a0e;
+  --muted: rgba(45,26,14,.6);
+  --gold: #c9934a;
+  --gold-lt: #e8c07e;
+  --gold-pale: #f5e8d0;
+  --rose: #e8b4a0;
+  --rose-deep: #c47a65;
+  --cream: rgba(255,248,238,.9);
+  --glass: rgba(255,252,246,.82);
+  --stroke: rgba(201,147,74,.22);
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'Jost', system-ui, sans-serif;
+  --shadow: 0 20px 60px rgba(30,15,5,.13);
+  --shadow-s: 0 4px 20px rgba(30,15,5,.08);
+  --r: 20px;
 }
-    </style>
-  </head>
-  <body>
-    <div class="app">
-      <header class="topbar">
-        <div class="brand">
-          <div class="mark">S</div>
-          <div>
-            <small>Schicgirl™ Hair Intelligence</small>
-            <h1>HydraCheck</h1>
-          </div>
-        </div>
-        <div class="lang-sw">
-          <button id="btnFR" class="active" onclick="setLang('fr')">FR</button>
-          <button id="btnEN" onclick="setLang('en')">EN</button>
-        </div>
-      </header>
 
-      <section class="panel">
-        <aside class="hero">
-          <div>
-            <p class="eyebrow" id="heroEyebrow">Inspiré du guide hydratation</p>
-            <h2 id="heroTitle">Pourquoi tes cheveux restent secs ?</h2>
-            <p id="heroDesc">
-              Cette mini-application analyse ton hydratation, ta rétention, ta
-              porosité, l'épaisseur de tes cheveux, ta routine et les erreurs
-              possibles.
-            </p>
-          </div>
-          <div class="mini-grid">
-            <div class="mini">
-              <strong>01</strong
-              ><span id="m1">Identifier le vrai blocage d'hydratation.</span>
-            </div>
-            <div class="mini">
-              <strong>02</strong
-              ><span id="m2"
-                >Recevoir une méthode simple : eau, soin, scellage,
-                observation.</span
-              >
-            </div>
-            <div class="mini">
-              <strong>03</strong
-              ><span id="m3">Ajuster selon porosité, épaisseur et climat.</span>
-            </div>
-            <div class="mini">
-              <strong>04</strong
-              ><span id="m4"
-                >Aller plus loin avec le guide ou une routine
-                personnalisée.</span
-              >
-            </div>
-          </div>
-        </aside>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
 
-        <main class="chat-panel">
-          <div class="progress-track">
-            <div class="progress-fill" id="progress"></div>
-          </div>
-          <div class="chatbox" id="chatbox"></div>
-          <div class="quick" id="quick"></div>
-          <form class="form" id="form" autocomplete="off">
-            <input id="input" />
-            <button class="send" id="sendBtn">Envoyer</button>
-          </form>
-        </main>
-      </section>
+body {
+  font-family: var(--sans);
+  color: var(--ink);
+  background:
+    radial-gradient(ellipse 80% 55% at 0% 0%, rgba(232,180,160,.45) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 100% 100%, rgba(237,217,176,.55) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 40% at 50% 50%, rgba(253,246,238,.8) 0%, transparent 70%),
+    linear-gradient(160deg, #fdf6ee 0%, #f8ece0 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  padding: 0 0 60px;
+  -webkit-user-select: none;
+  user-select: none;
+}
 
-      <footer class="footer" id="footerText">
-        © 2026 Schicgirl™ — HydraCheck. Tous droits réservés.
-      </footer>
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+/* ── LANG SWITCHER ── */
+.lang-bar {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; justify-content: flex-end;
+  padding: 10px 20px;
+  background: rgba(253,246,238,.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(201,147,74,.12);
+}
+.lang-toggle {
+  display: flex;
+  background: rgba(201,147,74,.1);
+  border-radius: 100px;
+  padding: 3px;
+  gap: 2px;
+}
+.lang-btn {
+  padding: 6px 16px;
+  border: none; border-radius: 100px;
+  font-family: var(--sans); font-size: 12px; font-weight: 600;
+  cursor: pointer; transition: all .2s;
+  background: transparent; color: var(--muted);
+  letter-spacing: .05em;
+}
+.lang-btn.active {
+  background: var(--gold);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(201,147,74,.4);
+}
+
+/* ── WRAPPER ── */
+.wrap {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 18px;
+}
+
+/* ── HERO ── */
+.hero {
+  text-align: center;
+  padding: 44px 0 36px;
+}
+.logo-ring {
+  width: 110px; height: 110px;
+  border-radius: 50%;
+  border: 2px solid rgba(201,147,74,.35);
+  padding: 4px;
+  margin: 0 auto 20px;
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+.logo-ring::before {
+  content: '';
+  position: absolute; inset: -6px;
+  border-radius: 50%;
+  border: 1px solid rgba(201,147,74,.15);
+  animation: pulse-ring 3s ease-in-out infinite;
+}
+@keyframes pulse-ring {
+  0%, 100% { transform: scale(1); opacity: .6; }
+  50% { transform: scale(1.04); opacity: 1; }
+}
+.logo-img {
+  width: 100%; height: 100%;
+  border-radius: 50%; object-fit: cover;
+  display: block;
+}
+.brand-name {
+  font-family: var(--serif);
+  font-size: 38px; font-weight: 300; letter-spacing: .06em;
+  color: var(--ink); margin-bottom: 6px;
+  line-height: 1;
+}
+.brand-name span { color: var(--gold); font-weight: 600; font-style: italic; }
+.brand-tagline {
+  font-size: 13px; font-weight: 400; color: var(--muted);
+  letter-spacing: .08em; line-height: 1.6;
+  margin-bottom: 6px;
+}
+.brand-tagline-fr { display: none; }
+
+.icon-row {
+  display: flex; justify-content: center; gap: 10px;
+  margin: 18px 0 0; flex-wrap: wrap;
+}
+.icon-chip {
+  width: 44px; height: 44px; border-radius: 50%;
+  overflow: hidden; border: 2px solid var(--stroke);
+  background: var(--glass);
+  box-shadow: var(--shadow-s);
+  transition: transform .2s;
+}
+.icon-chip:hover { transform: translateY(-2px); }
+.icon-chip img { width: 100%; height: 100%; object-fit: cover; }
+
+.stat-row {
+  display: flex; justify-content: center; gap: 10px;
+  margin: 24px 0 0; flex-wrap: wrap;
+}
+.stat-pill {
+  background: var(--glass);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--stroke);
+  border-radius: 100px;
+  padding: 7px 16px;
+  font-size: 12px; font-weight: 600; color: var(--muted);
+  display: flex; align-items: center; gap: 6px;
+}
+.stat-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+
+/* ── SECTIONS ── */
+.section { margin-top: 28px; }
+.section-label {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 12px;
+  display: flex; align-items: center; gap: 8px;
+  padding: 0 4px;
+}
+.section-label::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(90deg, rgba(201,147,74,.3), transparent);
+}
+
+/* ── LINK CARDS ── */
+.link-card {
+  display: flex; align-items: center; gap: 14px;
+  background: var(--glass);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,.9);
+  border-radius: var(--r);
+  padding: 16px 18px;
+  margin-bottom: 10px;
+  text-decoration: none; color: var(--ink);
+  box-shadow: var(--shadow-s);
+  transition: all .22s cubic-bezier(.4,0,.2,1);
+  position: relative; overflow: hidden;
+  cursor: pointer;
+}
+.link-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,248,238,.6), rgba(232,180,160,.1));
+  opacity: 0; transition: opacity .2s;
+}
+.link-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+  border-color: rgba(201,147,74,.35);
+}
+.link-card:hover::before { opacity: 1; }
+.link-card:active { transform: scale(.98); }
+
+.link-card.featured {
+  background: linear-gradient(135deg, rgba(45,26,14,.96), rgba(90,46,26,.92));
+  border-color: rgba(201,147,74,.5);
+  color: #fdf6ee;
+}
+.link-card.featured::before { display: none; }
+.link-card.featured:hover {
+  border-color: var(--gold);
+  box-shadow: 0 20px 50px rgba(45,26,14,.25), 0 0 0 1px rgba(201,147,74,.4);
+}
+.link-card.featured .link-title { color: var(--gold-lt); }
+.link-card.featured .link-sub { color: rgba(253,240,215,.65); }
+.link-card.featured .link-arrow { color: var(--gold); }
+
+.link-icon {
+  width: 44px; height: 44px; border-radius: 14px;
+  flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  background: rgba(201,147,74,.1);
+  border: 1px solid rgba(201,147,74,.18);
+}
+.link-card.featured .link-icon {
+  background: rgba(201,147,74,.2);
+  border-color: rgba(201,147,74,.35);
+}
+
+.link-body { flex: 1; min-width: 0; }
+.link-title {
+  font-family: var(--sans); font-size: 14.5px; font-weight: 600;
+  line-height: 1.3; margin-bottom: 3px;
+}
+.link-sub {
+  font-size: 12px; color: var(--muted);
+  line-height: 1.45; font-weight: 400;
+}
+
+.link-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; }
+.link-arrow { font-size: 18px; color: var(--gold); opacity: .7; }
+
+.badge-pill {
+  font-size: 9px; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; padding: 3px 9px;
+  border-radius: 100px; white-space: nowrap;
+}
+.badge-new { background: rgba(58,107,76,.12); color: #2d6b46; border: 1px solid rgba(58,107,76,.2); }
+.badge-top { background: rgba(201,147,74,.15); color: var(--gold); border: 1px solid rgba(201,147,74,.25); }
+.badge-free { background: rgba(232,180,160,.2); color: var(--rose-deep); border: 1px solid rgba(232,180,160,.4); }
+.badge-hot { background: rgba(180,70,50,.1); color: #b44232; border: 1px solid rgba(180,70,50,.2); }
+.link-card.featured .badge-top { background: rgba(201,147,74,.25); color: var(--gold-lt); border-color: rgba(201,147,74,.4); }
+
+/* ── DIAGNOSTIC CARD ── */
+.diag-card {
+  background: linear-gradient(135deg, rgba(232,180,160,.3), rgba(201,147,74,.15));
+  border: 1px solid rgba(201,147,74,.28);
+  border-radius: var(--r);
+  padding: 20px 18px;
+  margin-bottom: 10px;
+  text-decoration: none; display: block; color: var(--ink);
+  box-shadow: var(--shadow-s);
+  transition: all .22s;
+  cursor: pointer;
+}
+.diag-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+.diag-inner { display: flex; align-items: center; gap: 14px; }
+.diag-icon-wrap {
+  width: 50px; height: 50px; border-radius: 16px;
+  background: linear-gradient(135deg, var(--rose), var(--gold));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; flex-shrink: 0;
+  box-shadow: 0 6px 18px rgba(201,147,74,.3);
+}
+.diag-label {
+  font-size: 9px; font-weight: 700; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 3px;
+}
+.diag-title { font-family: var(--sans); font-size: 15px; font-weight: 700; margin-bottom: 2px; }
+.diag-sub { font-size: 12px; color: var(--muted); }
+
+/* ── TESTIMONIALS ── */
+.testi-scroll {
+  display: flex; gap: 12px;
+  overflow-x: auto; padding-bottom: 8px;
+  scrollbar-width: none; -ms-overflow-style: none;
+}
+.testi-scroll::-webkit-scrollbar { display: none; }
+.testi-card {
+  flex-shrink: 0; width: 230px;
+  background: var(--glass); backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,.9);
+  border-radius: 18px; padding: 18px;
+  box-shadow: var(--shadow-s);
+}
+.testi-stars { color: var(--gold); font-size: 13px; letter-spacing: 2px; margin-bottom: 8px; }
+.testi-text {
+  font-family: var(--serif); font-style: italic;
+  font-size: 15px; color: var(--ink); line-height: 1.6;
+  margin-bottom: 12px;
+}
+.testi-author {
+  font-size: 11px; font-weight: 700; color: var(--muted);
+  letter-spacing: .05em; text-transform: uppercase;
+}
+
+/* ── GIFT BOX ── */
+.gift-card {
+  background: linear-gradient(135deg, rgba(232,180,160,.25), rgba(253,246,238,.85));
+  border: 1.5px dashed rgba(201,147,74,.35);
+  border-radius: var(--r);
+  padding: 20px 18px;
+  margin-bottom: 10px;
+  display: flex; gap: 14px; align-items: center;
+  text-decoration: none; color: var(--ink);
+  transition: all .22s; cursor: pointer;
+}
+.gift-card:hover { transform: translateY(-2px); border-style: solid; }
+.gift-wrap-icon {
+  width: 46px; height: 46px; border-radius: 14px;
+  background: linear-gradient(135deg, var(--rose), var(--gold-lt));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; flex-shrink: 0;
+}
+.gift-label { font-size: 9px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--rose-deep); margin-bottom: 3px; }
+.gift-title { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+.gift-sub { font-size: 12px; color: var(--muted); }
+
+/* ── SOCIAL ROW ── */
+.social-row {
+  display: flex; gap: 10px; flex-wrap: wrap;
+}
+.social-btn {
+  flex: 1; min-width: 130px;
+  background: var(--glass); backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,.88);
+  border-radius: 14px; padding: 14px 16px;
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none; color: var(--ink);
+  box-shadow: var(--shadow-s); transition: all .2s;
+  cursor: pointer;
+}
+.social-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); border-color: var(--stroke); }
+.social-icon { font-size: 20px; }
+.social-label { font-size: 13px; font-weight: 600; }
+.social-sub { font-size: 11px; color: var(--muted); }
+
+/* ── STAN STORE BLOCK ── */
+.stan-store {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.stan-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--glass);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,.92);
+  border-radius: 18px;
+  padding: 14px 16px;
+  text-decoration: none;
+  color: var(--ink);
+  box-shadow: var(--shadow-s);
+  transition: all .22s cubic-bezier(.4,0,.2,1);
+  position: relative;
+  overflow: hidden;
+}
+.stan-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,248,238,.5), rgba(232,180,160,.08));
+  opacity: 0; transition: opacity .2s;
+  pointer-events: none;
+}
+.stan-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+  border-color: rgba(201,147,74,.3);
+}
+.stan-card:hover::before { opacity: 1; }
+.stan-card:active { transform: scale(.98); }
+
+.stan-img-wrap {
+  width: 64px; height: 64px;
+  border-radius: 14px;
+  flex-shrink: 0;
+  background: var(--gold-pale);
+  border: 1px solid rgba(201,147,74,.2);
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.stan-img-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.stan-img-emoji { font-size: 28px; }
+
+.stan-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.stan-eyebrow {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.stan-name {
+  font-size: 14.5px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--ink);
+}
+.stan-desc {
+  font-size: 11.5px;
+  color: var(--muted);
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+.stan-cta {
+  flex-shrink: 0;
+  background: var(--gold);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  padding: 8px 14px;
+  border-radius: 100px;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(201,147,74,.35);
+  transition: filter .2s;
+}
+.stan-card:hover .stan-cta { filter: brightness(1.08); }
+
+/* ── FOOTER ── */
+.footer {
+  text-align: center; margin-top: 44px; padding: 0 18px;
+  font-size: 11px; color: var(--muted);
+  line-height: 1.7;
+}
+.footer strong { color: var(--gold); }
+.footer-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,147,74,.25), transparent);
+  margin: 14px 0;
+}
+
+/* ── LANG VISIBILITY ── */
+body.en .fr-only { display: none !important; }
+body.fr .en-only { display: none !important; }
+body.en .brand-tagline-en { display: block; }
+body.en .brand-tagline-fr { display: none; }
+body.fr .brand-tagline-en { display: none; }
+body.fr .brand-tagline-fr { display: block; }
+
+/* ── WATERMARK ── */
+.wm-strip {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 50;
+  background: rgba(253,246,238,.92); backdrop-filter: blur(8px);
+  border-top: 1px solid rgba(201,147,74,.15);
+  text-align: center; padding: 6px 12px;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: .1em; color: var(--muted);
+}
+</style>
+</head>
+<body class="fr" id="body">
+
+<!-- LANG BAR -->
+<div class="lang-bar">
+  <div class="lang-toggle">
+    <button class="lang-btn" id="btnEn" onclick="setLang('en')">🇬🇧 EN</button>
+    <button class="lang-btn active" id="btnFr" onclick="setLang('fr')">🇫🇷 FR</button>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="logo-ring">
+      <img class="logo-img" src="https://link.schicgirl.me/logo2.png" alt="Schicgirl logo"
+        onerror="this.style.display='none';this.parentElement.innerHTML='<div style=\'width:100%;height:100%;border-radius:50%;background:linear-gradient(135deg,#e8b4a0,#c9934a);display:flex;align-items:center;justify-content:center;font-family:Cormorant Garamond,serif;font-size:40px;font-weight:600;color:#fff\'>S</div>'"/>
+    </div>
+    <h1 class="brand-name">Schic<span>girl</span>™</h1>
+    <p class="brand-tagline brand-tagline-en">Clarity, care &amp; confidence for natural hair.</p>
+    <p class="brand-tagline brand-tagline-fr">Clarté, soin &amp; confiance pour cheveux naturels.</p>
+
+    <div class="icon-row">
+      <div class="icon-chip"><img src="https://link.schicgirl.me/woman_icon_0.png" alt=""/></div>
+      <div class="icon-chip"><img src="https://link.schicgirl.me/woman_icon_1.png" alt=""/></div>
+      <div class="icon-chip"><img src="https://link.schicgirl.me/woman_icon_2.png" alt=""/></div>
+      <div class="icon-chip"><img src="https://link.schicgirl.me/woman_icon_3.png" alt=""/></div>
     </div>
 
-    <script>
-      /* ──────────────────────────────────────────────
-   CONFIG
-──────────────────────────────────────────────── */
-      const CONFIG = {
-        guideLink: "https://selar.com/hydratation-cheveux-crepus",
-        routineLink: "https://selar.com/70t3ur414k",
-        adminStorageKey: "schicgirl_hydration_leads",
-      };
-
-      /* ──────────────────────────────────────────────
-   STRINGS — all UI + conversation copy
-──────────────────────────────────────────────── */
-      const STR = {
-        fr: {
-          /* Hero */
-          heroEyebrow: "Inspiré du guide hydratation",
-          heroTitle: "Pourquoi tes cheveux restent secs ?",
-          heroDesc:
-            "Cette mini-application analyse ton hydratation, ta rétention, ta porosité, l'épaisseur de tes cheveux, ta routine et les erreurs possibles. Le but : comprendre si tes cheveux manquent d'eau, de scellage, de nettoyage, de légèreté ou d'une routine mieux adaptée.",
-          m1: "Identifier le vrai blocage d'hydratation.",
-          m2: "Recevoir une méthode simple : eau, soin, scellage, observation.",
-          m3: "Ajuster selon porosité, épaisseur et climat.",
-          m4: "Aller plus loin avec le guide ou une routine personnalisée.",
-          inputPlaceholder: "Écris ta réponse ici…",
-          sendBtn: "Envoyer",
-          footer:
-            "© 2026 Schicgirl™ — HydraCheck. Tous droits réservés. Reproduction interdite.",
-
-          /* Conversation */
-          welcome: "💧 Bienvenue dans HydraCheck de Schicgirl.",
-          intro:
-            "Je vais t'aider à comprendre pourquoi tes cheveux crépus restent secs : manque d'eau, mauvaise rétention, produits trop lourds, accumulation, porosité, pointes ou routine mal adaptée.\n\nComment souhaites-tu que je t'appelle ?",
-          greeting: (name) =>
-            `Ravie de te guider, ${name} 💛\n\nTu peux laisser ton email ou WhatsApp pour sauvegarder ce diagnostic, ou continuer sans contact.`,
-          askCountry:
-            "Dans quel pays vis-tu ? Le climat influence beaucoup la perte d'hydratation.",
-          askClimate: "Ton climat actuel ressemble plutôt à quoi ?",
-          askDryness:
-            "Après un soin ou une hydratation, combien de temps tes cheveux restent-ils doux ?",
-          askHydrationBasis:
-            "Quand tu « hydrates », quelle est la première chose que tu mets sur tes cheveux ?",
-          askOilOnly:
-            "Utilises-tu souvent les huiles en pensant qu'elles hydratent seules ?",
-          askSeal:
-            "Après l'eau ou le leave-in, est-ce que tu scelles l'hydratation ?",
-          askHeavy:
-            "Tes produits donnent parfois un effet lourd, gras ou collant ?",
-          askBuildup:
-            "Même après tes soins, as-tu l'impression que tes cheveux sont chargés mais toujours secs ?",
-          askPorosity: "Quelle est ta porosité ou ton observation avec l'eau ?",
-          askThickness:
-            "Tes mèches individuelles sont plutôt fines, moyennes ou épaisses ?",
-          askFrequency:
-            "À quelle fréquence hydrates-tu réellement tes cheveux ?",
-          askOverHydration:
-            "Tes cheveux deviennent-ils parfois mous, sans tenue ou trop souples après trop d'eau/soins ?",
-          askEnds: "Comment sont tes pointes ?",
-          askNight: "Protèges-tu tes cheveux la nuit ?",
-          askRoutine: "Ta routine est-elle simple et régulière ?",
-          askEmergency:
-            "Actuellement, tes cheveux sont-ils en situation d'urgence : très secs, cassants, difficiles à coiffer ?",
-          askGoal: "Quel est ton objectif principal maintenant ?",
-          diagIntro: (name) =>
-            `${name}, ton diagnostic est prêt. Retiens ceci : hydrater ne veut pas dire saturer les cheveux de produits. Hydrater, c'est apporter l'eau, l'aider à rester, puis observer.`,
-
-          /* Quick-reply labels */
-          q: {
-            skipContact: "Continuer sans contact",
-            ciDivoire: "Côte d'Ivoire",
-            france: "France",
-            usa: "États-Unis",
-            canada: "Canada",
-            other: "Autre",
-            hotDry: "Chaud et sec",
-            humid: "Chaud et humide",
-            cold: "Froid / hiver",
-            variable: "Variable",
-            under24: "Moins de 24h",
-            d1_2: "1 à 2 jours",
-            d3_4: "3 à 4 jours",
-            week: "Presque toute la semaine",
-            water: "Eau ou spray aqueux",
-            leavein: "Leave-in / lait hydratant",
-            oil: "Huile ou beurre directement",
-            cream: "Crème riche sans eau avant",
-            oilYes: "Oui, souvent",
-            oilSometimes: "Parfois",
-            oilNo: "Non, je sais que l'eau vient d'abord",
-            sealLight: "Oui, avec une huile légère",
-            sealRich: "Oui, avec crème/beurre",
-            sealSometimes: "Parfois seulement",
-            sealNo: "Non, jamais",
-            heavyOften: "Oui, souvent",
-            heavySometimes: "Parfois",
-            heavyNo: "Non, ils restent légers",
-            buildupHD: "Oui, lourds mais secs",
-            buildupDull: "Ils sont ternes et difficiles à hydrater",
-            buildupNo: "Non, pas vraiment",
-            porosityLow: "Faible : l'eau reste en surface",
-            porosityHigh: "Forte : l'eau entre vite mais ressort vite",
-            porosityNormal: "Normale",
-            porosityUnknown: "Je ne sais pas",
-            thickFine: "Fines : elles se chargent vite",
-            thickMed: "Moyennes",
-            thickThick: "Épaisses : elles supportent plus de matière",
-            thickUnknown: "Je ne sais pas",
-            freqDaily: "Tous les jours",
-            freq2_3: "2 à 3 fois/semaine",
-            freqWeekly: "1 fois/semaine",
-            freqRare: "Rarement / quand j'y pense",
-            overYes: "Oui",
-            overSometimes: "Parfois",
-            overNo: "Non",
-            endsDry: "Très sèches et rêches",
-            endsSplit: "Fourchues / transparentes",
-            endsOk: "Correctes",
-            endsUnknown: "Je ne vérifie jamais",
-            nightSatin: "Oui, bonnet/taie satin",
-            nightSometimes: "Parfois",
-            nightNo: "Non",
-            routineStable: "Oui, claire et stable",
-            routineUnstable: "Je change souvent",
-            routineNone: "Je n'ai pas vraiment de routine",
-            emergYes: "Oui, urgence sécheresse",
-            emergMed: "Un peu",
-            emergNo: "Non",
-            goalRet: "Garder l'hydratation plus longtemps",
-            goalPor: "Comprendre ma porosité",
-            goalBreak: "Stopper la casse",
-            goalRoutine: "Créer une routine simple",
-            seeGuide: "Voir le guide",
-            seeRoutine: "Routine personnalisée",
-            restart: "Recommencer",
-          },
-
-          /* Result labels */
-          rResult: "Résultat HydraCheck",
-          rProfileDetected: "Profil détecté",
-          rPriority: "Priorité",
-          rCauses: "Causes possibles",
-          rActions: "Actions immédiates",
-          rMethod: "Méthode Schicgirl en 5 étapes",
-          rFreq: "Fréquence de départ",
-          rFreqVal: "2 à 3 fois/semaine, puis ajuste selon les signes.",
-          rMore: "À hydrater plus",
-          rMoreVal:
-            "Rêche, pointes qui s'accrochent, casse, douceur qui disparaît vite.",
-          rSpace: "À espacer",
-          rSpaceVal: "Cheveux mous, lourds, sans tenue, trop chargés.",
-          rEssential: "Essentiel",
-          rEssentialVal: "Eau + soin + scellage + protection, pas 10 produits.",
-          rEmergency: "Plan urgence 7 jours",
-          rOffer: "Pour aller plus loin",
-          rOfferDesc:
-            "Ce diagnostic gratuit t'indique le blocage principal. Pour apprendre la méthode complète, prends le guide. Pour recevoir une routine faite pour ton profil exact, prends la création de routine personnalisée.",
-          rGuideBtn: "💧 Guide Hydratation Cheveux Crépus",
-          rRoutineBtn: "🌿 Création de routine personnalisée",
-
-          /* Causes & actions */
-          causes: {
-            retention:
-              "Tes cheveux perdent vite leur douceur : il y a probablement un problème de rétention ou de scellage.",
-            waterFirst:
-              "Tu commences peut-être par du gras ou une crème trop riche alors que l'hydratation commence par l'eau.",
-            oilMyth:
-              "Les huiles protègent et scellent, mais elles n'hydratent pas seules.",
-            sealLoss:
-              "L'eau peut s'évaporer vite si elle n'est pas retenue par un scellage adapté.",
-            heavy:
-              "Tes produits semblent parfois trop lourds : cela peut étouffer la fibre et donner une fausse impression de soin.",
-            buildup:
-              "Possible accumulation : cheveux chargés, ternes, lourds mais secs. L'eau pénètre moins bien.",
-            lowPor:
-              "Porosité faible : l'eau entre difficilement. Les textures lourdes peuvent rester en surface.",
-            highPor:
-              "Porosité forte : l'eau entre vite mais ressort vite. La rétention est la priorité.",
-            fineSeal:
-              "Mèches fines : elles se chargent vite. Il faut des couches fines et légères.",
-            rare: "Hydratation trop rare : les longueurs peuvent devenir rêches et les pointes casser.",
-            overHyd:
-              "Tu hydrates peut-être trop souvent : cheveux mous, sans tenue = besoin d'espacer et d'observer.",
-            ends: "Les pointes demandent plus d'attention : elles sont la partie la plus ancienne et fragile.",
-            night:
-              "Sans satin la nuit, le coton absorbe l'hydratation et augmente les frottements.",
-            routine:
-              "La routine manque de cohérence. Une routine simple mais stable donne plus de résultats.",
-            emergency:
-              "Tes cheveux sont en urgence sécheresse : il faut revenir à l'essentiel, pas multiplier les produits.",
-          },
-          actions: {
-            waterFirst:
-              "Commence toujours par eau, spray aqueux ou leave-in très aqueux.",
-            seal: "Après l'eau/leave-in, ajoute une fine couche d'huile ou de crème selon tes cheveux.",
-            buildup:
-              "Fais un nettoyage doux ou un masque clarifiant doux avant shampoing, puis hydrate correctement.",
-            lowPor:
-              "Utilise des textures légères, applique sur cheveux bien humides et aide avec chaleur douce.",
-            highPor:
-              "Scelle mieux, protège les pointes et évite de laisser sécher entre les étapes.",
-            ends: "Hydrate les pointes séparément, scelle-les et protège-les immédiatement.",
-            night: "Bonnet, foulard ou taie satin chaque nuit.",
-          },
-          profiles: {
-            balanced: "Hydratation à équilibrer",
-            noWater: "Manque d'eau réelle",
-            retention: "Rétention faible",
-            buildup: "Accumulation / surcharge",
-            lowPor: "Porosité faible à débloquer",
-            emergency: "Urgence sécheresse",
-          },
-          priorities: {
-            balanced: "observer et ajuster sans surcharger",
-            noWater: "remettre l'eau au centre de ta routine",
-            retention: "sceller et protéger pour garder l'eau plus longtemps",
-            buildup: "nettoyer doucement puis alléger les produits",
-            lowPor: "faire pénétrer l'hydratation sans étouffer",
-            emergency: "nettoyer intelligemment, hydrater, sceller et protéger",
-          },
-          noCause:
-            "• Ton profil est plutôt équilibré. Continue à observer et rester régulière.",
-          noAction:
-            "• Garde une routine simple : eau, soin hydratant, scellage adapté, protection.",
-
-          /* 5-step plan */
-          plan: `① Eau ou élément aqueux\nCommence par des cheveux humidifiés, un spray hydratant ou un leave-in très aqueux.\n\n② Soin hydratant/adoucissant\nAjoute un lait, leave-in ou crème légère pour accompagner l'eau.\n\n③ Scellage adapté\nAjoute une fine couche d'huile, crème ou beurre selon ta porosité et ton épaisseur. Le but n'est pas de graisser, mais de retenir.\n\n④ Protection\nLaisse les cheveux tranquilles : vanilles, nattes souples, chignon doux ou coiffure peu manipulée.\n\n⑤ Observation\nRegarde si tes cheveux deviennent doux, lourds, mous, secs vite ou plus cassants. Ajuste selon ces signes.`,
-          planLowPor: `\n\n📌 Spécial faible porosité : textures légères, petites quantités, cheveux bien humides et chaleur douce pendant les soins.`,
-          planHighPor: `\n\n📌 Spécial forte porosité : ne laisse pas sécher entre les étapes, scelle mieux, insiste sur les pointes et la protection nocturne.`,
-          planFine: `\n\n📌 Mèches fines : applique moins de produit, en couches fines. Trop riche = lourd mais pas forcément hydraté.`,
-          planThick: `\n\n📌 Mèches épaisses : tu peux utiliser un peu plus de matière, surtout sur longueurs et pointes.`,
-
-          /* 7-day emergency */
-          emergency7: `Jour 1 : Évalue l'état réel — sec, chargé, abîmé ou trop mou.\nJour 2 : Si les cheveux sont lourds/ternes, fais un nettoyage doux ou clarifiant léger avant shampoing.\nJour 3 : Fais un vrai soin hydratant sur cheveux bien humidifiés.\nJour 4 : Scelle correctement, surtout les pointes.\nJour 5 : Protège immédiatement avec une coiffure simple et satin la nuit.\nJour 6 : Réduis la surcharge : eau + soin hydratant + scellage + protection.\nJour 7 : Observe : douceur, souplesse, pointes, lourdeur, casse.`,
-        },
-
-        en: {
-          /* Hero */
-          heroEyebrow: "Inspired by the hydration guide",
-          heroTitle: "Why does your hair stay dry?",
-          heroDesc:
-            "This mini-app analyses your hydration, retention, porosity, strand thickness, routine and possible mistakes. The goal: understand whether your hair lacks water, sealing, clarifying, lightness or a better-adapted routine.",
-          m1: "Identify the real hydration blockage.",
-          m2: "Get a simple method: water, moisturiser, sealant, observation.",
-          m3: "Adjust for porosity, thickness and climate.",
-          m4: "Go further with the guide or a personalised routine.",
-          inputPlaceholder: "Type your answer here…",
-          sendBtn: "Send",
-          footer: "© 2026 Schicgirl™ — HydraCheck. All rights reserved.",
-
-          /* Conversation */
-          welcome: "💧 Welcome to Schicgirl's HydraCheck.",
-          intro:
-            "I'll help you understand why your curly hair stays dry: lack of water, poor retention, heavy products, build-up, porosity, ends or a poorly-adapted routine.\n\nWhat would you like me to call you?",
-          greeting: (name) =>
-            `Happy to guide you, ${name} 💛\n\nYou can share your email or WhatsApp to save this diagnostic, or continue without contact.`,
-          askCountry:
-            "Which country do you live in? Climate greatly influences hydration loss.",
-          askClimate: "What does your current climate feel like?",
-          askDryness:
-            "After a wash day or moisturising session, how long does your hair stay soft?",
-          askHydrationBasis:
-            "When you 'moisturise', what is the very first thing you apply?",
-          askOilOnly:
-            "Do you often use oils thinking they moisturise on their own?",
-          askSeal: "After water or leave-in, do you seal in the moisture?",
-          askHeavy:
-            "Do your products sometimes leave your hair feeling heavy, greasy or sticky?",
-          askBuildup:
-            "Even after your routine, does your hair feel loaded but still dry?",
-          askPorosity:
-            "What is your porosity — or what do you observe with water?",
-          askThickness: "Are your individual strands fine, medium or thick?",
-          askFrequency: "How often do you actually moisturise your hair?",
-          askOverHydration:
-            "Does your hair sometimes go limp, floppy or lose definition after too much water/product?",
-          askEnds: "How are your ends?",
-          askNight: "Do you protect your hair at night?",
-          askRoutine: "Is your routine simple and consistent?",
-          askEmergency:
-            "Right now, is your hair in a dry emergency — very dry, brittle, hard to style?",
-          askGoal: "What is your main goal right now?",
-          diagIntro: (name) =>
-            `${name}, your diagnostic is ready. Remember: moisturising doesn't mean loading your hair with products. It means bringing in water, helping it stay, then observing.`,
-
-          /* Quick-reply labels */
-          q: {
-            skipContact: "Continue without contact",
-            ciDivoire: "Côte d'Ivoire",
-            france: "France",
-            usa: "United States",
-            canada: "Canada",
-            other: "Other",
-            hotDry: "Hot & dry",
-            humid: "Hot & humid",
-            cold: "Cold / winter",
-            variable: "Variable",
-            under24: "Less than 24 h",
-            d1_2: "1–2 days",
-            d3_4: "3–4 days",
-            week: "Almost all week",
-            water: "Water or water-based spray",
-            leavein: "Leave-in / moisturising milk",
-            oil: "Oil or butter directly",
-            cream: "Rich cream with no water first",
-            oilYes: "Yes, often",
-            oilSometimes: "Sometimes",
-            oilNo: "No, I know water comes first",
-            sealLight: "Yes, with a light oil",
-            sealRich: "Yes, with cream/butter",
-            sealSometimes: "Sometimes only",
-            sealNo: "Never",
-            heavyOften: "Yes, often",
-            heavySometimes: "Sometimes",
-            heavyNo: "No, they stay light",
-            buildupHD: "Yes, heavy but dry",
-            buildupDull: "Dull and hard to moisturise",
-            buildupNo: "Not really",
-            porosityLow: "Low: water sits on the surface",
-            porosityHigh: "High: water enters fast but leaves fast",
-            porosityNormal: "Normal",
-            porosityUnknown: "I don't know",
-            thickFine: "Fine: they load up quickly",
-            thickMed: "Medium",
-            thickThick: "Thick: they can take more product",
-            thickUnknown: "I don't know",
-            freqDaily: "Every day",
-            freq2_3: "2–3 times/week",
-            freqWeekly: "Once a week",
-            freqRare: "Rarely / when I remember",
-            overYes: "Yes",
-            overSometimes: "Sometimes",
-            overNo: "No",
-            endsDry: "Very dry and rough",
-            endsSplit: "Split / transparent",
-            endsOk: "Fine",
-            endsUnknown: "I never check",
-            nightSatin: "Yes, satin bonnet/pillowcase",
-            nightSometimes: "Sometimes",
-            nightNo: "No",
-            routineStable: "Yes, clear and consistent",
-            routineUnstable: "I change it often",
-            routineNone: "I don't really have a routine",
-            emergYes: "Yes, dry emergency",
-            emergMed: "A little",
-            emergNo: "No",
-            goalRet: "Keep moisture longer",
-            goalPor: "Understand my porosity",
-            goalBreak: "Stop breakage",
-            goalRoutine: "Build a simple routine",
-            seeGuide: "See the guide",
-            seeRoutine: "Personalised routine",
-            restart: "Restart",
-          },
-
-          /* Result labels */
-          rResult: "HydraCheck Result",
-          rProfileDetected: "Detected profile",
-          rPriority: "Priority",
-          rCauses: "Possible causes",
-          rActions: "Immediate actions",
-          rMethod: "Schicgirl 5-step method",
-          rFreq: "Starting frequency",
-          rFreqVal: "2–3 times/week, then adjust based on signs.",
-          rMore: "Moisturise more when",
-          rMoreVal:
-            "Rough, catching ends, breakage, softness disappearing quickly.",
-          rSpace: "Space it out when",
-          rSpaceVal: "Hair feels limp, heavy, lacking definition, overloaded.",
-          rEssential: "The essential",
-          rEssentialVal:
-            "Water + moisturiser + sealant + protection — not 10 products.",
-          rEmergency: "7-day emergency plan",
-          rOffer: "Go further",
-          rOfferDesc:
-            "This free diagnostic shows you the main blockage. To learn the full method, get the guide. For a routine built for your exact profile, get the personalised routine creation.",
-          rGuideBtn: "💧 Curly Hair Hydration Guide",
-          rRoutineBtn: "🌿 Personalised routine creation",
-
-          /* Causes & actions */
-          causes: {
-            retention:
-              "Your hair loses its softness quickly: there is likely a retention or sealing issue.",
-            waterFirst:
-              "You might be starting with oil or a rich cream when hydration should start with water.",
-            oilMyth:
-              "Oils protect and seal, but they don't moisturise on their own.",
-            sealLoss:
-              "Water can evaporate quickly if it isn't locked in with proper sealing.",
-            heavy:
-              "Your products seem too heavy at times — this can suffocate the hair and give a false sense of care.",
-            buildup:
-              "Possible build-up: hair feels loaded, dull, heavy but dry. Water struggles to penetrate.",
-            lowPor:
-              "Low porosity: water struggles to enter. Heavy textures may sit on the surface.",
-            highPor:
-              "High porosity: water enters fast but leaves just as fast. Retention is the priority.",
-            fineSeal: "Fine strands load up fast. Thin, light layers are key.",
-            rare: "Too infrequent moisturising: lengths can become rough and ends may break.",
-            overHyd:
-              "You might be moisturising too often — limp, definition-less hair means it's time to space out and observe.",
-            ends: "Ends need more attention: they are the oldest and most fragile part of your hair.",
-            night:
-              "Without satin at night, cotton absorbs moisture and increases friction.",
-            routine:
-              "Your routine lacks consistency. A simple but stable routine delivers more results than a complex one.",
-            emergency:
-              "Your hair is in a dry emergency: go back to basics, don't multiply products.",
-          },
-          actions: {
-            waterFirst:
-              "Always start with water, a water-based spray or a very light leave-in.",
-            seal: "After water/leave-in, add a thin layer of oil or cream suited to your hair.",
-            buildup:
-              "Do a gentle cleanse or light clarifying mask before shampooing, then moisturise properly.",
-            lowPor:
-              "Use light textures, small amounts, apply to very damp hair and use gentle heat during treatments.",
-            highPor:
-              "Seal better, protect your ends and avoid letting hair dry between steps.",
-            ends: "Moisturise ends separately, seal them and protect them immediately.",
-            night: "Satin bonnet, scarf or pillowcase every night.",
-          },
-          profiles: {
-            balanced: "Hydration to balance",
-            noWater: "Lack of real water",
-            retention: "Low retention",
-            buildup: "Build-up / overload",
-            lowPor: "Low porosity to unblock",
-            emergency: "Dry emergency",
-          },
-          priorities: {
-            balanced: "observe and adjust without overloading",
-            noWater: "put water back at the centre of your routine",
-            retention: "seal and protect to hold moisture longer",
-            buildup: "gently cleanse then lighten your products",
-            lowPor: "get moisture in without suffocating the hair",
-            emergency: "cleanse smartly, moisturise, seal and protect",
-          },
-          noCause:
-            "• Your profile is fairly balanced. Keep observing and stay consistent.",
-          noAction:
-            "• Maintain a simple routine: water, moisturiser, suitable sealant, protection.",
-
-          /* 5-step plan */
-          plan: `① Water or water-based product\nStart with damp hair, a hydrating spray or a very light leave-in.\n\n② Moisturising / softening treatment\nAdd a milk, leave-in or light cream to work alongside the water.\n\n③ Suitable sealant\nAdd a thin layer of oil, cream or butter based on your porosity and thickness. The goal is retention, not greasiness.\n\n④ Protection\nLeave your hair alone: twists, loose braids, a soft bun or a low-manipulation style.\n\n⑤ Observation\nNotice if your hair becomes soft, heavy, limp, dries quickly or breaks more. Adjust based on these signs.`,
-          planLowPor: `\n\n📌 Low porosity tip: light textures, small amounts, very damp hair and gentle heat during treatments.`,
-          planHighPor: `\n\n📌 High porosity tip: don't let hair dry between steps, seal better, focus on ends and nightly protection.`,
-          planFine: `\n\n📌 Fine strands: apply less product, in thin layers. Richer doesn't mean more hydrated.`,
-          planThick: `\n\n📌 Thick strands: you can use slightly more product, especially on lengths and ends.`,
-
-          /* 7-day emergency */
-          emergency7: `Day 1: Assess the real state — dry, loaded, damaged or too limp.\nDay 2: If hair is heavy/dull, do a gentle or light clarifying cleanse before shampooing.\nDay 3: Do a real moisturising treatment on very damp hair.\nDay 4: Seal properly, especially the ends.\nDay 5: Protect immediately with a simple style and satin at night.\nDay 6: Reduce overload — water + moisturiser + sealant + protection.\nDay 7: Observe: softness, flexibility, ends, heaviness, breakage.`,
-        },
-      };
-
-      /* ──────────────────────────────────────────────
-   STATE
-──────────────────────────────────────────────── */
-      let lang = localStorage.getItem("schic_hydracheck_lang") || "fr";
-      const state = {
-        conversation: [],
-        step: "",
-        name: "",
-        contact: "",
-        country: "",
-        climate: "",
-        dryness: "",
-        hydrationBasis: "",
-        oilOnly: "",
-        seal: "",
-        heavyProducts: "",
-        buildup: "",
-        porosity: "",
-        thickness: "",
-        frequency: "",
-        overHydration: "",
-        ends: "",
-        nightProtection: "",
-        routine: "",
-        emergency: "",
-        goal: "",
-        score: 0,
-        profile: "",
-        priority: "",
-      };
-      const steps = [
-        "name",
-        "contact",
-        "country",
-        "climate",
-        "dryness",
-        "hydrationBasis",
-        "oilOnly",
-        "seal",
-        "heavyProducts",
-        "buildup",
-        "porosity",
-        "thickness",
-        "frequency",
-        "overHydration",
-        "ends",
-        "nightProtection",
-        "routine",
-        "emergency",
-        "goal",
-        "done",
-      ];
-
-      /* ──────────────────────────────────────────────
-   DOM refs
-──────────────────────────────────────────────── */
-      const chat = document.getElementById("chatbox");
-      const quickBar = document.getElementById("quick");
-      const form = document.getElementById("form");
-      const input = document.getElementById("input");
-      const progress = document.getElementById("progress");
-
-      /* ──────────────────────────────────────────────
-   i18n helpers
-──────────────────────────────────────────────── */
-      function s(key) {
-        return STR[lang][key] ?? STR["fr"][key] ?? key;
-      }
-      function q(key) {
-        return STR[lang].q[key] ?? STR["fr"].q[key] ?? key;
-      }
-
-      function applyLang() {
-        const L = STR[lang];
-        document.documentElement.lang = lang;
-        document.getElementById("heroEyebrow").textContent = L.heroEyebrow;
-        document.getElementById("heroTitle").textContent = L.heroTitle;
-        document.getElementById("heroDesc").textContent = L.heroDesc;
-        document.getElementById("m1").textContent = L.m1;
-        document.getElementById("m2").textContent = L.m2;
-        document.getElementById("m3").textContent = L.m3;
-        document.getElementById("m4").textContent = L.m4;
-        document.getElementById("input").placeholder = L.inputPlaceholder;
-        document.getElementById("sendBtn").textContent = L.sendBtn;
-        document.getElementById("footerText").textContent = L.footer;
-        document
-          .getElementById("btnFR")
-          .classList.toggle("active", lang === "fr");
-        document
-          .getElementById("btnEN")
-          .classList.toggle("active", lang === "en");
-      }
-
-      function setLang(l) {
-        lang = l;
-
-        localStorage.setItem("schic_hydracheck_lang", l);
-
-        // Full reload
-        window.location.reload();
-      }
-
-      /* ──────────────────────────────────────────────
-   Chat engine
-──────────────────────────────────────────────── */
-      const norm = (v) =>
-        String(v || "")
-          .toLowerCase()
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "")
-          .trim();
-
-      function setStep(step) {
-        state.step = step;
-        const i = steps.indexOf(step);
-        progress.style.width =
-          (i < 0 ? 0 : Math.round((i / (steps.length - 1)) * 100)) + "%";
-      }
-
-      function setReplies(arr) {
-        quickBar.innerHTML = "";
-        (arr || []).forEach((r) => {
-          const b = document.createElement("button");
-          b.type = "button";
-          b.className = "qbtn";
-          b.textContent = r.label;
-          b.onclick = () => handle(r.value, r.label);
-          quickBar.appendChild(b);
-        });
-        setTimeout(() => (chat.scrollTop = chat.scrollHeight), 50);
-      }
-
-      function typingEl() {
-        const d = document.createElement("div");
-        d.className = "typing";
-        d.id = "typing";
-        d.innerHTML =
-          '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
-        chat.appendChild(d);
-        chat.scrollTop = chat.scrollHeight;
-      }
-      function rmTyping() {
-        const d = document.getElementById("typing");
-        if (d) d.remove();
-      }
-
-      function stripHtml(html) {
-        const temp = document.createElement("div");
-        temp.innerHTML = html;
-        return temp.textContent || temp.innerText || "";
-      }
-
-      function addMsg(text, cls = "bot", html = false, delay = 0) {
-        // Save conversation history
-        if (state.conversation) {
-          state.conversation.push({
-            sender: cls === "user" ? "user" : "bot",
-            message: html ? stripHtml(text) : text,
-            time: new Date().toISOString(),
-          });
-          autoSaveConversation();
-        }
-
-        return new Promise((res) =>
-          setTimeout(() => {
-            rmTyping();
-
-            const d = document.createElement("div");
-            d.className = "msg " + cls;
-
-            if (html) {
-              d.innerHTML = text;
-            } else {
-              d.textContent = text;
-            }
-
-            chat.appendChild(d);
-            chat.scrollTop = chat.scrollHeight;
-
-            res(d);
-          }, delay),
-        );
-      }
-
-      async function bot(text, delay = 520, html = false) {
-        typingEl();
-        return addMsg(text, "bot", html, delay);
-      }
-
-      function autoSaveConversation() {
-        localStorage.setItem(
-          "hydracheck_current_session",
-          JSON.stringify(state),
-        );
-      }
-
-      function saveLead() {
-        const lead = {
-          ...state,
-          conversation: [...state.conversation],
-          date: new Date().toISOString(),
-          lang,
-        };
-
-        const list = JSON.parse(
-          localStorage.getItem(CONFIG.adminStorageKey) || "[]",
-        );
-
-        list.push(lead);
-
-        localStorage.setItem(CONFIG.adminStorageKey, JSON.stringify(list));
-      }
-
-      /* ──────────────────────────────────────────────
-   Analysis engine
-──────────────────────────────────────────────── */
-      function analyze() {
-        let score = 10;
-        const causeKeys = [],
-          actionKeys = [];
-
-        if (["under24", "1_2"].includes(state.dryness)) {
-          score -= 2;
-          causeKeys.push("retention");
-        }
-        if (["oil", "cream"].includes(state.hydrationBasis)) {
-          score -= 2;
-          causeKeys.push("waterFirst");
-          actionKeys.push("waterFirst");
-        }
-        if (["yes", "sometimes"].includes(state.oilOnly)) {
-          score -= 1;
-          causeKeys.push("oilMyth");
-        }
-        if (["no", "sometimes"].includes(state.seal)) {
-          score -= 1;
-          causeKeys.push("sealLoss");
-          actionKeys.push("seal");
-        }
-        if (["often", "sometimes"].includes(state.heavyProducts)) {
-          score -= 1;
-          causeKeys.push("heavy");
-        }
-        if (["heavy_dry", "dull"].includes(state.buildup)) {
-          score -= 2;
-          causeKeys.push("buildup");
-          actionKeys.push("buildup");
-        }
-        if (state.porosity === "low") {
-          score -= 1;
-          causeKeys.push("lowPor");
-          actionKeys.push("lowPor");
-        }
-        if (state.porosity === "high") {
-          score -= 1;
-          causeKeys.push("highPor");
-          actionKeys.push("highPor");
-        }
-        if (state.thickness === "fine") {
-          score -= 1;
-          causeKeys.push("fineSeal");
-        }
-        if (state.frequency === "rare") {
-          score -= 2;
-          causeKeys.push("rare");
-        }
-        if (
-          state.frequency === "daily" &&
-          ["yes", "sometimes"].includes(state.overHydration)
-        ) {
-          score -= 1;
-          causeKeys.push("overHyd");
-        }
-        if (["dry", "split", "unknown"].includes(state.ends)) {
-          score -= 1;
-          causeKeys.push("ends");
-          actionKeys.push("ends");
-        }
-        if (["no", "sometimes"].includes(state.nightProtection)) {
-          score -= 1;
-          causeKeys.push("night");
-          actionKeys.push("night");
-        }
-        if (["unstable", "none"].includes(state.routine)) {
-          score -= 1;
-          causeKeys.push("routine");
-        }
-        if (state.emergency === "yes") {
-          score -= 1;
-          causeKeys.push("emergency");
-        }
-        score = Math.max(1, score);
-
-        // Determine profile key
-        let profileKey = "balanced";
-        if (
-          ["oil", "cream"].includes(state.hydrationBasis) ||
-          ["yes", "sometimes"].includes(state.oilOnly)
-        )
-          profileKey = "noWater";
-        if (
-          ["under24", "1_2"].includes(state.dryness) ||
-          state.porosity === "high"
-        )
-          profileKey = "retention";
-        if (
-          ["heavy_dry", "dull"].includes(state.buildup) ||
-          state.heavyProducts === "often"
-        )
-          profileKey = "buildup";
-        if (state.porosity === "low") profileKey = "lowPor";
-        if (state.emergency === "yes") profileKey = "emergency";
-
-        return { score, profileKey, causeKeys, actionKeys };
-      }
-
-      function buildPlan() {
-        const L = STR[lang];
-        let text = L.plan;
-        if (state.porosity === "low") text += L.planLowPor;
-        if (state.porosity === "high") text += L.planHighPor;
-        if (state.thickness === "fine") text += L.planFine;
-        if (state.thickness === "thick") text += L.planThick;
-        return text;
-      }
-
-      async function buildDiagnosis() {
-        setStep("done");
-        const a = analyze();
-        const L = STR[lang];
-
-        state.score = a.score;
-        state.profile = L.profiles[a.profileKey];
-        state.priority = L.priorities[a.profileKey];
-
-        await bot(
-          L.diagIntro(state.name || (lang === "fr" ? "Ma belle" : "Dear")),
-        );
-
-        const causesText = a.causeKeys.length
-          ? a.causeKeys.map((k) => "• " + L.causes[k]).join("\n")
-          : L.noCause;
-        const actionsText = a.actionKeys.length
-          ? a.actionKeys.map((k) => "• " + L.actions[k]).join("\n")
-          : L.noAction;
-
-        const html = `
-    <div class="r-label">${L.rResult}</div>
-    <div class="score-card">
-      <div class="score">${a.score}/10</div>
-      <div class="score-text">
-        ${L.rProfileDetected}<br>
-        <strong>${L.profiles[a.profileKey]}</strong><br>
-        ${L.rPriority} : ${L.priorities[a.profileKey]}
+    <div class="stat-row">
+      <div class="stat-pill">
+        <div class="stat-dot"></div>
+        <span class="en-only">10,000+ women helped</span>
+        <span class="fr-only">10 000+ femmes aidées</span>
+      </div>
+      <div class="stat-pill">
+        <div class="stat-dot"></div>
+        <span class="en-only">🇬🇧 🇫🇷 Bilingual</span>
+        <span class="fr-only">🇬🇧 🇫🇷 Bilingue</span>
       </div>
     </div>
-    <div class="divider"></div>
-    <div class="r-label">${L.rCauses}</div><p>${causesText}</p>
-    <div class="divider"></div>
-    <div class="r-label">${L.rActions}</div><p>${actionsText}</p>
-    <div class="divider"></div>
-    <div class="r-label">${L.rMethod}</div><p>${buildPlan()}</p>
-    <div class="method-grid">
-      <div class="method"><b>${L.rFreq}</b><br>${L.rFreqVal}</div>
-      <div class="method"><b>${L.rMore}</b><br>${L.rMoreVal}</div>
-      <div class="method"><b>${L.rSpace}</b><br>${L.rSpaceVal}</div>
-      <div class="method"><b>${L.rEssential}</b><br>${L.rEssentialVal}</div>
-    </div>
-    <div class="divider"></div>
-    <div class="r-label">${L.rEmergency}</div><p>${L.emergency7}</p>
-    <div class="offer">
-  <h3>💌 ${lang === "fr" ? "Diagnostic terminé" : "Diagnostic completed"}</h3>
+  </div>
 
-  <p>
-    ${
-      lang === "fr"
-        ? "Tu as utilisé ton diagnostic gratuit. Pour une nouvelle analyse ou un accompagnement personnalisé, contacte-moi par email ou Facebook."
-        : "You have already used your free diagnostic. For another analysis or personalised support, contact me by email or Facebook."
-    }
-  </p>
+  <!-- ── WELCOME GIFT ── -->
+  <div class="section">
+    <div class="section-label en-only">✦ Your Welcome Gift</div>
+    <div class="section-label fr-only">✦ Ton Cadeau de Bienvenue</div>
 
-  <div class="offer-btns">
-    <a class="btn-dark" href="mailto:contacte.schicgirl@gmail.com">
-      ${lang === "fr" ? "📧 Envoyer un email" : "📧 Send an email"}
+    <a href="https://selar.com/49y1751324" class="gift-card en-only" onclick="trackClick('gift-en')">
+      <div class="gift-wrap-icon">🎁</div>
+      <div>
+        <div class="gift-label">Free Download</div>
+        <div class="gift-title">15 Hair Mistakes to Fix</div>
+        <div class="gift-sub">Download your free ebook &amp; start improving your routine today.</div>
+      </div>
     </a>
 
-    <a class="btn-gold" href="https://facebook.com/schicgirl" target="_blank">
-      ${lang === "fr" ? "📘 Message Facebook" : "📘 Facebook Message"}
+    <a href="https://selar.com/1t7713181a" class="gift-card fr-only" onclick="trackClick('gift-fr')">
+      <div class="gift-wrap-icon">🎁</div>
+      <div>
+        <div class="gift-label">Téléchargement Gratuit</div>
+        <div class="gift-title">15 Erreurs Capillaires à Corriger</div>
+        <div class="gift-sub">Télécharge ton ebook gratuit et améliore ta routine dès aujourd'hui.</div>
+      </div>
     </a>
   </div>
-</div>`;
 
-        await addMsg(html, "result", true, 250);
-        saveLead();
-        localStorage.setItem("hydracheck_used", "yes");
+  <!-- ── PREMIUM RESOURCES ── -->
+  <div class="section">
+    <div class="section-label en-only">✦ Premium Resources</div>
+    <div class="section-label fr-only">✦ Ressources Premium</div>
 
-        // Disable chat after completion
-        input.disabled = true;
-        input.placeholder = "Diagnostic terminé";
-        document.getElementById("sendBtn").disabled = true;
-        quickBar.innerHTML = "";
-
-        setReplies([
-          { label: q("seeGuide"), value: "guide" },
-          { label: q("seeRoutine"), value: "routine" },
-          { label: q("restart"), value: "restart" },
-        ]);
-      }
-
-      /* ──────────────────────────────────────────────
-   Conversation flow
-──────────────────────────────────────────────── */
-      async function handle(value, label = value) {
-        const raw = String(value).trim();
-        if (!raw) return;
-        const v = norm(raw);
-        addMsg(label, "user");
-        setReplies([]);
-        input.value = "";
-
-        switch (state.step) {
-          case "name":
-            state.name = raw;
-            setStep("contact");
-            await bot(s("greeting")(state.name));
-            setReplies([{ label: q("skipContact"), value: "skip" }]);
-            break;
-
-          case "contact":
-            state.contact = v === "skip" ? "" : raw;
-            setStep("country");
-            await bot(s("askCountry"));
-            setReplies([
-              { label: q("ciDivoire"), value: "Côte d'Ivoire" },
-              { label: q("france"), value: "France" },
-              {
-                label: q("usa"),
-                value: lang === "fr" ? "États-Unis" : "United States",
-              },
-              { label: q("canada"), value: "Canada" },
-              { label: q("other"), value: lang === "fr" ? "Autre" : "Other" },
-            ]);
-            break;
-
-          case "country":
-            state.country = raw;
-            setStep("climate");
-            await bot(s("askClimate"));
-            setReplies([
-              { label: q("hotDry"), value: "hot_dry" },
-              { label: q("humid"), value: "humid" },
-              { label: q("cold"), value: "cold" },
-              { label: q("variable"), value: "variable" },
-            ]);
-            break;
-
-          case "climate":
-            state.climate = v;
-            setStep("dryness");
-            await bot(s("askDryness"));
-            setReplies([
-              { label: q("under24"), value: "under24" },
-              { label: q("d1_2"), value: "1_2" },
-              { label: q("d3_4"), value: "3_4" },
-              { label: q("week"), value: "week" },
-            ]);
-            break;
-
-          case "dryness":
-            state.dryness = v;
-            setStep("hydrationBasis");
-            await bot(s("askHydrationBasis"));
-            setReplies([
-              { label: q("water"), value: "water" },
-              { label: q("leavein"), value: "leavein" },
-              { label: q("oil"), value: "oil" },
-              { label: q("cream"), value: "cream" },
-            ]);
-            break;
-
-          case "hydrationBasis":
-            state.hydrationBasis = v;
-            setStep("oilOnly");
-            await bot(s("askOilOnly"));
-            setReplies([
-              { label: q("oilYes"), value: "yes" },
-              { label: q("oilSometimes"), value: "sometimes" },
-              { label: q("oilNo"), value: "no" },
-            ]);
-            break;
-
-          case "oilOnly":
-            state.oilOnly = v;
-            setStep("seal");
-            await bot(s("askSeal"));
-            setReplies([
-              { label: q("sealLight"), value: "light" },
-              { label: q("sealRich"), value: "rich" },
-              { label: q("sealSometimes"), value: "sometimes" },
-              { label: q("sealNo"), value: "no" },
-            ]);
-            break;
-
-          case "seal":
-            state.seal = v;
-            setStep("heavyProducts");
-            await bot(s("askHeavy"));
-            setReplies([
-              { label: q("heavyOften"), value: "often" },
-              { label: q("heavySometimes"), value: "sometimes" },
-              { label: q("heavyNo"), value: "no" },
-            ]);
-            break;
-
-          case "heavyProducts":
-            state.heavyProducts = v;
-            setStep("buildup");
-            await bot(s("askBuildup"));
-            setReplies([
-              { label: q("buildupHD"), value: "heavy_dry" },
-              { label: q("buildupDull"), value: "dull" },
-              { label: q("buildupNo"), value: "no" },
-            ]);
-            break;
-
-          case "buildup":
-            state.buildup = v;
-            setStep("porosity");
-            await bot(s("askPorosity"));
-            setReplies([
-              { label: q("porosityLow"), value: "low" },
-              { label: q("porosityHigh"), value: "high" },
-              { label: q("porosityNormal"), value: "normal" },
-              { label: q("porosityUnknown"), value: "unknown" },
-            ]);
-            break;
-
-          case "porosity":
-            state.porosity = v;
-            setStep("thickness");
-            await bot(s("askThickness"));
-            setReplies([
-              { label: q("thickFine"), value: "fine" },
-              { label: q("thickMed"), value: "medium" },
-              { label: q("thickThick"), value: "thick" },
-              { label: q("thickUnknown"), value: "unknown" },
-            ]);
-            break;
-
-          case "thickness":
-            state.thickness = v;
-            setStep("frequency");
-            await bot(s("askFrequency"));
-            setReplies([
-              { label: q("freqDaily"), value: "daily" },
-              { label: q("freq2_3"), value: "2_3" },
-              { label: q("freqWeekly"), value: "weekly" },
-              { label: q("freqRare"), value: "rare" },
-            ]);
-            break;
-
-          case "frequency":
-            state.frequency = v;
-            setStep("overHydration");
-            await bot(s("askOverHydration"));
-            setReplies([
-              { label: q("overYes"), value: "yes" },
-              { label: q("overSometimes"), value: "sometimes" },
-              { label: q("overNo"), value: "no" },
-            ]);
-            break;
-
-          case "overHydration":
-            state.overHydration = v;
-            setStep("ends");
-            await bot(s("askEnds"));
-            setReplies([
-              { label: q("endsDry"), value: "dry" },
-              { label: q("endsSplit"), value: "split" },
-              { label: q("endsOk"), value: "ok" },
-              { label: q("endsUnknown"), value: "unknown" },
-            ]);
-            break;
-
-          case "ends":
-            state.ends = v;
-            setStep("nightProtection");
-            await bot(s("askNight"));
-            setReplies([
-              { label: q("nightSatin"), value: "satin" },
-              { label: q("nightSometimes"), value: "sometimes" },
-              { label: q("nightNo"), value: "no" },
-            ]);
-            break;
-
-          case "nightProtection":
-            state.nightProtection = v;
-            setStep("routine");
-            await bot(s("askRoutine"));
-            setReplies([
-              { label: q("routineStable"), value: "stable" },
-              { label: q("routineUnstable"), value: "unstable" },
-              { label: q("routineNone"), value: "none" },
-            ]);
-            break;
-
-          case "routine":
-            state.routine = v;
-            setStep("emergency");
-            await bot(s("askEmergency"));
-            setReplies([
-              { label: q("emergYes"), value: "yes" },
-              { label: q("emergMed"), value: "medium" },
-              { label: q("emergNo"), value: "no" },
-            ]);
-            break;
-
-          case "emergency":
-            state.emergency = v;
-            setStep("goal");
-            await bot(s("askGoal"));
-            setReplies([
-              { label: q("goalRet"), value: "retention" },
-              { label: q("goalPor"), value: "porosity" },
-              { label: q("goalBreak"), value: "breakage" },
-              { label: q("goalRoutine"), value: "routine" },
-            ]);
-            break;
-
-          case "goal":
-            state.goal = v;
-            buildDiagnosis();
-            break;
-
-          case "done":
-            if (v === "guide") window.open(CONFIG.guideLink, "_blank");
-            if (v === "routine") window.open(CONFIG.routineLink, "_blank");
-            if (v === "restart") start();
-            break;
-        }
-      }
-
-      /* ──────────────────────────────────────────────
-   Start
-──────────────────────────────────────────────── */
-      function start() {
-        // Reset state (keep lang)
-        Object.keys(state).forEach((k) => {
-          state[k] = typeof state[k] === "number" ? 0 : "";
-        });
-        setStep("name");
-        setReplies([]);
-        chat.innerHTML = "";
-        addMsg(s("welcome"), "bot");
-        setTimeout(() => bot(s("intro")), 280);
-      }
-
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        handle(input.value);
-      });
-
-      /* ── One-time access system ── */
-      const alreadyUsed = localStorage.getItem("hydracheck_used");
-
-      const savedSession = localStorage.getItem("hydracheck_current_session");
-
-      if (savedSession) {
-        Object.assign(state, JSON.parse(savedSession));
-      }
-
-      applyLang();
-
-      if (alreadyUsed === "yes") {
-        // Remove form completely
-        form.style.display = "none";
-        quickBar.style.display = "none";
-
-        chat.innerHTML = `
-  
-    <div style="
-      min-height:75vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:24px;
-    ">
-
-      <div style="
-  width:100%;
-  max-width:520px;
-  background:linear-gradient(145deg,#fffaf4,#fff2e8);
-  border:1px solid rgba(176,123,56,.22);
-  border-radius:24px;
-  padding:26px 22px;
-  text-align:center;
-  box-shadow:0 14px 40px rgba(62,38,28,.10);
-">
-
-        <div style="
-          width:68px;
-          height:68px;
-          margin:0 auto 22px;
-          border-radius:50%;
-          background:linear-gradient(135deg,#e4b4af,#d4a55e);
-          display:flex;
-          align-items:center;
-          justify-content:center;
-          font-size:36px;
-          color:white;
-          box-shadow:0 12px 30px rgba(176,123,56,.25);
-        ">
-          💛
+    <!-- Diagnostic Chat -->
+    <a href="https://schicgirl-hair.github.io/schicchat/" class="diag-card" onclick="trackClick('schicchat')">
+      <div class="diag-inner">
+        <div class="diag-icon-wrap">💬</div>
+        <div>
+          <div class="diag-label en-only">Diagnostic · Free</div>
+          <div class="diag-label fr-only">Diagnostique Auto · Gratuit</div>
+          <div class="diag-title">Schicgirl™ <span class="en-only">Diagnostic Chat</span><span class="fr-only">Diagnostique</span></div>
+          <div class="diag-sub">
+            <span class="en-only">Talk to me about your hair — instant expert answers.</span>
+            <span class="fr-only">Parle-moi de tes cheveux — réponses expertes instantanées.</span>
+          </div>
         </div>
-
-        <h2 style="
-          font-family:'Cormorant Garamond',serif;
-          font-size:42px;
-          font-weight:500;
-          margin-bottom:14px;
-          color:#3e261c;
-        ">
-          ${
-            lang === "fr"
-              ? "Diagnostic déjà utilisé"
-              : "Diagnostic Already Used"
-          }
-        </h2>
-
-        <p style="
-          font-size:15px;
-          line-height:1.9;
-          color:#8b6a5c;
-          margin-bottom:28px;
-        ">
-          ${
-            lang === "fr"
-              ? "Tu as déjà utilisé ton diagnostic gratuit HydraCheck. Pour une nouvelle analyse personnalisée ou un accompagnement complet, contacte-moi directement."
-              : "You already used your free HydraCheck diagnostic. For another personalised analysis or full support, contact me directly."
-          }
-        </p>
-
-        <div style="
-          display:grid;
-          gap:14px;
-        ">
-
-          <a
-            href="mailto:contacte.schicgirl@gmail.com"
-            style="
-              display:flex;
-              align-items:center;
-              justify-content:center;
-              text-decoration:none;
-              height:56px;
-              border-radius:999px;
-              background:#3e261c;
-              color:white;
-              font-weight:700;
-              font-size:14px;
-              transition:.2s;
-              box-shadow:0 10px 24px rgba(62,38,28,.18);
-            "
-          >
-            📧 ${lang === "fr" ? "Contacter par email" : "Contact by Email"}
-          </a>
-
-          <a
-            href="https://facebook.com/schicgirl"
-            target="_blank"
-            style="
-              display:flex;
-              align-items:center;
-              justify-content:center;
-              text-decoration:none;
-              height:56px;
-              border-radius:999px;
-              background:linear-gradient(135deg,#d4a55e,#b07b38);
-              color:white;
-              font-weight:700;
-              font-size:14px;
-              transition:.2s;
-              box-shadow:0 10px 24px rgba(176,123,56,.22);
-            "
-          >
-            📘 ${lang === "fr" ? "Message Facebook" : "Facebook Message"}
-          </a>
-
-        </div>
-
       </div>
+    </a>
+
+    <a href="https://schicgirl-hair.github.io/hydratation/" class="link-card fr-only" onclick="trackClick('premium-fr')">
+      <div class="link-icon">💧</div>
+      <div class="link-body">
+        <div class="link-title">Pourquoi tes cheveux restent secs ?</div>
+        <div class="link-sub">Je vais t'aider à comprendre pourquoi tes cheveux crépus restent secs.</div>
+      </div>
+      <div class="link-right">
+        <span class="badge-pill badge-top">AUTO</span>
+        <span class="link-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="https://schicgirl-hair.github.io/hydratation/" class="link-card en-only" onclick="trackClick('premium-fr')">
+      <div class="link-icon">💧</div>
+      <div class="link-body">
+        <div class="link-title">Why your hair are still dry ?</div>
+        <div class="link-sub">I will help you understand why your natural hair are still dry.</div>
+      </div>
+      <div class="link-right">
+        <span class="badge-pill badge-top">AUTO</span>
+        <span class="link-arrow">→</span>
+      </div>
+    </a>
+
+    
+
+    <a href="https://schicgirl-hair.github.io/Consultation/" class="link-card fr-only" onclick="trackClick('consultation')">
+      <div class="link-icon">📅</div>
+      <div class="link-body">
+        <div class="link-title">Consultation Capillaire</div>
+        <div class="link-sub">Réserve ta consultation personnalisée avec Schicgirl.</div>
+      </div>
+      <div class="link-right">
+        <span class="link-arrow">→</span>
+      </div>
+    </a>
+  </div>
+
+  <!-- ── AMAZON PICKS — STAN STORE STYLE ── -->
+  <div class="section">
+    <div class="section-label en-only">✦ My Curated Picks</div>
+    <div class="section-label fr-only">✦ Mes Sélections</div>
+
+    <div class="stan-store">
+
+      <!-- Shop All -->
+      <a href="https://www.amazon.com/shop/schicgirl" class="stan-card" onclick="trackClick('amazon-shop')">
+        <div class="stan-img-wrap stan-img-emoji">🛍️</div>
+        <div class="stan-body">
+          <div class="stan-eyebrow en-only">Amazon Storefront</div>
+          <div class="stan-eyebrow fr-only">Boutique Amazon</div>
+          <div class="stan-name en-only">All My Picks</div>
+          <div class="stan-name fr-only">Tous mes coups de cœur</div>
+          <div class="stan-desc en-only">Browse every product I trust for natural hair.</div>
+          <div class="stan-desc fr-only">Toutes mes recommandations capillaires.</div>
+        </div>
+        <div class="stan-cta en-only">Shop →</div>
+        <div class="stan-cta fr-only">Voir →</div>
+      </a>
+
+      <!-- Aunt Jackie's Baby Curls -->
+      <a href="https://amzn.to/491lO7A" class="stan-card" onclick="trackClick('auntjackies-baby')">
+        <div class="stan-img-wrap">
+          <img src="baby_curls_cream.png" alt="Aunt Jackie's Baby Curls"/>
+        </div>
+        <div class="stan-body">
+          <div class="stan-eyebrow en-only">Kids · Curl Care</div>
+          <div class="stan-eyebrow fr-only">Enfants · Boucles</div>
+          <div class="stan-name">Aunt Jackie's Baby Curls</div>
+          <div class="stan-desc en-only">Gentle curl-defining cream for little ones.</div>
+          <div class="stan-desc fr-only">Crème douce pour définir les boucles des enfants.</div>
+        </div>
+        <div class="stan-cta en-only">Get it →</div>
+        <div class="stan-cta fr-only">Voir →</div>
+      </a>
+
+      <!-- Aunt Jackie's Bundle -->
+      <a href="https://amzn.to/3OkUfzm" class="stan-card" onclick="trackClick('auntjackies-bundle')">
+        <div class="stan-img-wrap">
+          <img src="amazon.png" alt="Aunt Jackie's Bundle"/>
+        </div>
+        <div class="stan-body">
+          <div class="stan-eyebrow en-only">Curls &amp; Coils</div>
+          <div class="stan-eyebrow fr-only">Boucles &amp; Coils</div>
+          <div class="stan-name">Aunt Jackie's Bundle</div>
+          <div class="stan-desc en-only">The full curl &amp; coil care system in one set.</div>
+          <div class="stan-desc fr-only">Le système complet soin boucles &amp; coils.</div>
+        </div>
+        <div class="stan-cta en-only">Get it →</div>
+        <div class="stan-cta fr-only">Voir →</div>
+      </a>
 
     </div>
-  `;
-      } else {
-        if (state.conversation.length) {
-          state.conversation.forEach((msg) => {
-            addMsg(msg.message, msg.sender === "user" ? "user" : "bot");
-          });
-        } else {
-          start();
-        }
-      }
-    </script>
-  </body>
+  </div>
+
+  <!-- ── TESTIMONIALS ── -->
+  <div class="section">
+    <div class="section-label en-only">✦ Real Results</div>
+    <div class="section-label fr-only">✦ Résultats Réels</div>
+
+    <div class="testi-scroll">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text en-only">"This routine transformed my curls! Soft, hydrated hair at last."</p>
+        <p class="testi-text fr-only">« Cette routine a transformé mes boucles ! Enfin des cheveux doux. »</p>
+        <div class="testi-author">— Sophie C.</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text en-only">"Personalised advice that actually works. My hair has never been better."</p>
+        <p class="testi-text fr-only">« Des conseils personnalisés qui marchent vraiment. Mes cheveux n'ont jamais été aussi beaux. »</p>
+        <div class="testi-author">— Miriam L.</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text en-only">"Game-changing tools. My natural hair is thriving!"</p>
+        <p class="testi-text fr-only">« Outils révolutionnaires. Mes cheveux naturels s'épanouissent ! »</p>
+        <div class="testi-author">— Anita P.</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text en-only">"Finally understood my porosity. Everything clicked!"</p>
+        <p class="testi-text fr-only">« J'ai enfin compris ma porosité. Tout fait sens maintenant ! »</p>
+        <div class="testi-author">— Fatoumata D.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CONNECT ── -->
+  <div class="section">
+    <div class="section-label en-only">✦ Connect</div>
+    <div class="section-label fr-only">✦ Me Retrouver</div>
+
+    <div class="social-row">
+      <a href="https://www.facebook.com/schicgirl" class="social-btn" onclick="trackClick('facebook')">
+        <span class="social-icon">📘</span>
+        <div>
+          <div class="social-label">Facebook</div>
+          <div class="social-sub">
+            <span class="en-only">Daily tips &amp; real talk</span>
+            <span class="fr-only">Conseils &amp; coulisses</span>
+          </div>
+        </div>
+      </a>
+      <a href="mailto:contacte.schicgirl@gmail.com" class="social-btn" onclick="trackClick('email')">
+        <span class="social-icon">✉️</span>
+        <div>
+          <div class="social-label">
+            <span class="en-only">Email Me</span>
+            <span class="fr-only">M'Écrire</span>
+          </div>
+          <div class="social-sub">
+            <span class="en-only">Collabs &amp; support</span>
+            <span class="fr-only">Collabs &amp; support</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-divider"></div>
+    <img src="https://link.schicgirl.me/logo2.png" alt="Schicgirl"
+      style="width:36px;height:36px;border-radius:50%;object-fit:cover;margin:0 auto 10px;display:block;opacity:.7;"/>
+    <strong>Schicgirl™</strong><br/>
+    <span class="en-only">As an Amazon Associate I earn from qualifying purchases.<br/>contacte.schicgirl@gmail.com</span>
+    <span class="fr-only">En tant qu'associée Amazon, je gagne des revenus grâce aux achats éligibles.<br/>contacte.schicgirl@gmail.com</span>
+  </div>
+
+</div><!-- /wrap -->
+
+<div class="wm-strip">Schicgirl™ · link.schicgirl.me · © 2026</div>
+
+<script>
+/* ── LANGUAGE ── */
+function setLang(lang) {
+  document.getElementById('body').className = lang;
+  document.getElementById('btnEn').classList.toggle('active', lang === 'en');
+  document.getElementById('btnFr').classList.toggle('active', lang === 'fr');
+  document.documentElement.lang = lang;
+  localStorage.setItem('sg_lang', lang);
+}
+
+const savedLang = localStorage.getItem('sg_lang');
+if (savedLang) setLang(savedLang);
+
+/* ── ANALYTICS ── */
+const DATA_KEY = 'schicgirl_analytics';
+const MAX_CLICKS = 1200, MAX_VISITS = 600;
+
+function getData() {
+  try { return JSON.parse(localStorage.getItem(DATA_KEY) || '{"visits":[],"clicks":[]}'); }
+  catch { return { visits: [], clicks: [] }; }
+}
+function saveData(d) { try { localStorage.setItem(DATA_KEY, JSON.stringify(d)); } catch {} }
+
+function trackClick(value) {
+  const d = getData();
+  d.clicks.unshift({ ts: Date.now(), value });
+  if (d.clicks.length > MAX_CLICKS) d.clicks.length = MAX_CLICKS;
+  saveData(d);
+}
+
+(function() {
+  const d = getData();
+  d.visits.unshift({
+    ts: Date.now(),
+    lang: document.getElementById('body').className,
+    ref: document.referrer,
+    mob: /Mobi|Android/i.test(navigator.userAgent),
+    tz: Intl.DateTimeFormat().resolvedOptions().timeZone || ''
+  });
+  if (d.visits.length > MAX_VISITS) d.visits.length = MAX_VISITS;
+  saveData(d);
+})();
+
+/* ── COPY PROTECTION ── */
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('keydown', e => {
+  const blocked = (
+    (e.ctrlKey || e.metaKey) && ['s','p','a','c','u'].includes(e.key.toLowerCase())
+  ) || e.key === 'F12';
+  if (blocked) e.preventDefault();
+});
+document.addEventListener('copy', e => e.preventDefault());
+document.addEventListener('dragstart', e => e.preventDefault());
+</script>
+</body>
 </html>
