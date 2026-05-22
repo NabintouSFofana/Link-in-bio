@@ -334,6 +334,97 @@ body::after {
 .gift-title { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
 .gift-sub { font-size: 12px; color: var(--muted); }
 
+/* ── SHOP EBOOKS CARD ── */
+.shop-card {
+  display: flex;
+  gap: 16px;
+  align-items: stretch;
+  background: linear-gradient(135deg, rgba(45,26,14,.97), rgba(85,42,18,.94));
+  border: 1px solid rgba(201,147,74,.45);
+  border-radius: 22px;
+  padding: 18px;
+  margin-bottom: 10px;
+  text-decoration: none;
+  color: #fdf6ee;
+  box-shadow: var(--shadow);
+  transition: all .25s;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+.shop-card::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,147,74,.22) 0%, transparent 70%);
+  pointer-events: none;
+}
+.shop-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--gold);
+  box-shadow: 0 28px 70px rgba(45,26,14,.3), 0 0 0 1px rgba(201,147,74,.45);
+}
+.shop-card:active { transform: translateY(-1px) scale(.99); }
+.shop-img-wrap {
+  width: 96px;
+  flex-shrink: 0;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--gold-pale), rgba(201,147,74,.3));
+  border: 1px solid rgba(201,147,74,.35);
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 40px;
+  box-shadow: -4px 8px 18px rgba(0,0,0,.3);
+  position: relative; z-index: 1;
+}
+.shop-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.shop-body {
+  flex: 1; min-width: 0;
+  display: flex; flex-direction: column; justify-content: center; gap: 5px;
+  position: relative; z-index: 1;
+}
+.shop-eyebrow {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(201,147,74,.2);
+  border: 1px solid rgba(201,147,74,.3);
+  border-radius: 100px;
+  padding: 3px 10px;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: .15em; text-transform: uppercase;
+  color: var(--gold-lt);
+  align-self: flex-start;
+  margin-bottom: 2px;
+}
+.shop-title {
+  font-family: var(--serif);
+  font-size: 20px; font-weight: 400;
+  color: var(--gold-lt);
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+.shop-desc {
+  font-size: 12px;
+  color: rgba(253,240,215,.7);
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+.shop-cta {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--gold);
+  color: #fff;
+  font-size: 12px; font-weight: 700;
+  letter-spacing: .04em;
+  padding: 9px 16px;
+  border-radius: 100px;
+  box-shadow: 0 5px 16px rgba(201,147,74,.4);
+  white-space: nowrap;
+  align-self: flex-start;
+  transition: filter .2s;
+}
+.shop-card:hover .shop-cta { filter: brightness(1.1); }
+
 /* ── SOCIAL ROW ── */
 .social-row {
   display: flex; gap: 10px; flex-wrap: wrap;
@@ -523,12 +614,13 @@ body.fr .brand-tagline-fr { display: block; }
     </div>
   </div>
 
-  <!-- ── WELCOME GIFT ── -->
+  <!-- ── WELCOME GIFTS ── -->
   <div class="section">
-    <div class="section-label en-only">✦ Your Welcome Gift</div>
-    <div class="section-label fr-only">✦ Ton Cadeau de Bienvenue</div>
+    <div class="section-label en-only">✦ Your Free Gifts</div>
+    <div class="section-label fr-only">✦ Tes Cadeaux Gratuits</div>
 
-    <a href="https://selar.com/49y1751324" class="gift-card en-only" onclick="trackClick('gift-en')">
+    <!-- Gift 1: 15 Mistakes -->
+    <a href="https://selar.com/49y1751324" class="gift-card en-only" onclick="trackClick('gift-mistakes-en')">
       <div class="gift-wrap-icon">🎁</div>
       <div>
         <div class="gift-label">Free Download</div>
@@ -537,7 +629,7 @@ body.fr .brand-tagline-fr { display: block; }
       </div>
     </a>
 
-    <a href="https://selar.com/1t7713181a" class="gift-card fr-only" onclick="trackClick('gift-fr')">
+    <a href="https://selar.com/1t7713181a" class="gift-card fr-only" onclick="trackClick('gift-mistakes-fr')">
       <div class="gift-wrap-icon">🎁</div>
       <div>
         <div class="gift-label">Téléchargement Gratuit</div>
@@ -545,12 +637,54 @@ body.fr .brand-tagline-fr { display: block; }
         <div class="gift-sub">Télécharge ton ebook gratuit et améliore ta routine dès aujourd'hui.</div>
       </div>
     </a>
+
+    <!-- Gift 2: Free Guide (NEW) -->
+    <a href="https://selar.com/free_guide" class="gift-card en-only" onclick="trackClick('gift-guide-en')">
+      <div class="gift-wrap-icon">📖</div>
+      <div>
+        <div class="gift-label">Free · 26 pages</div>
+        <div class="gift-title">The Complete Type 4 Hair Guide</div>
+        <div class="gift-sub">Understand your texture, build your routine, finally hydrate your coily hair.</div>
+      </div>
+    </a>
+
+    <a href="https://selar.com/guidegratuit" class="gift-card fr-only" onclick="trackClick('gift-guide-fr')">
+      <div class="gift-wrap-icon">📖</div>
+      <div>
+        <div class="gift-label">Gratuit · 26 pages</div>
+        <div class="gift-title">Le Guide Complet Cheveux Type 4</div>
+        <div class="gift-sub">Comprends ta texture, construis ta routine, hydrate enfin tes cheveux crépus.</div>
+      </div>
+    </a>
+  </div>
+
+  <!-- ── SHOP MY EBOOKS (NEW) ── -->
+  <div class="section">
+    <div class="section-label en-only">✦ Premium Solutions</div>
+    <div class="section-label fr-only">✦ Solutions Premium</div>
+
+    <a href="https://selar.com/m/schicgirl" class="shop-card" onclick="trackClick('selar-shop')">
+      <div class="shop-img-wrap">
+        <img src="selar_shop.png" alt=""
+          onerror="var p=this.parentElement;p.innerHTML='📚';p.style.fontSize='42px';p.style.color='#c9934a'"/>
+      </div>
+      <div class="shop-body">
+        <span class="shop-eyebrow en-only">★ 8 Expert Ebooks</span>
+        <span class="shop-eyebrow fr-only">★ 8 Ebooks Experts</span>
+        <div class="shop-title en-only">Find your hair solution</div>
+        <div class="shop-title fr-only">Trouve ta solution capillaire</div>
+        <div class="shop-desc en-only">Hydration, growth, scalp reset, custom routines — proven guides that actually transform Type 4 hair.</div>
+        <div class="shop-desc fr-only">Hydratation, pousse, cuir chevelu, routines sur mesure — les guides qui transforment vraiment les cheveux Type 4.</div>
+        <span class="shop-cta en-only">Shop my ebooks →</span>
+        <span class="shop-cta fr-only">Voir tous mes ebooks →</span>
+      </div>
+    </a>
   </div>
 
   <!-- ── PREMIUM RESOURCES ── -->
   <div class="section">
-    <div class="section-label en-only">✦ Premium Resources</div>
-    <div class="section-label fr-only">✦ Ressources Premium</div>
+    <div class="section-label en-only">✦ Free Tools</div>
+    <div class="section-label fr-only">✦ Outils Gratuits</div>
 
     <!-- Diagnostic Chat -->
     <a href="https://schicgirl-hair.github.io/schicchat/" class="diag-card" onclick="trackClick('schicchat')">
